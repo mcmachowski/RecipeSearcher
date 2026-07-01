@@ -8,11 +8,11 @@ require("dotenv").config();
 const HttpError = require("./models/http-error");
 const recipesRoutes = require("./routes/recipes-routes");
 const usersRoutes = require("./routes/users-routes");
+const healthRoute = require("./routes/health-route");
 
 const app = express();
-const PORT = process.env.PORT || 5000; // Ustawienie portu
+const PORT = process.env.PORT || 5000;
 
-// Walidacja zmiennych środowiskowych
 if (!process.env.DB_USER || !process.env.DB_PASS || !process.env.DB_NAME) {
   console.error("❌ ERROR: Missing MongoDB environment variables!");
   process.exit(1);
@@ -22,10 +22,8 @@ const mongoDbUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@
 
 app.use(bodyParser.json());
 
-// Udostępnianie folderu z obrazami
 app.use("/uploads/images", express.static(path.join("uploads", "images")));
 
-// CORS – dostęp z innych domen
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -36,17 +34,15 @@ app.use((req, res, next) => {
   next();
 });
 
-// 📌 Trasy API
+app.use(healthRoute);
 app.use(recipesRoutes);
 app.use(usersRoutes);
 
-// 📌 Obsługa błędu "brak strony"
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route.", 404);
   next(error);
 });
 
-// 📌 Obsługa globalnych błędów
 app.use((error, req, res, next) => {
   if (req.file) {
     fs.unlink(req.file.path, (err) => console.log(err));
@@ -58,7 +54,6 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error occurred." });
 });
 
-// 📌 Połączenie z MongoDB i start serwera
 mongoose
   .connect(mongoDbUri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
@@ -67,5 +62,5 @@ mongoose
   })
   .catch((err) => {
     console.error("❌ MongoDB Connection Error:", err);
-    process.exit(1); // Zamknij aplikację jeśli nie można się połączyć
+    process.exit(1); 
   });
