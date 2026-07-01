@@ -14,7 +14,7 @@ RecipeSearcher is a full stack web application that I created as part of my engi
 
 ## Live
 
-To see full project live, visit the [Recipe Searcher website](https://mnedza-recipe-searcher.netlify.app/).
+To see full project live, visit the [Recipe Searcher website](https://mcmachowski-recipe-searcher.netlify.app/).
 
 ## Installation
 
