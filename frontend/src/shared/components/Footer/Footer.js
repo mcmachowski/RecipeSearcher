@@ -3,9 +3,9 @@ import styles from "./Footer.module.css";
 
 const footer = {
   name: "RecipeSearcher",
-  author: "Marcel Nędza",
-  github: "https://github.com/mnedza",
-  LinkedIn: "https://www.linkedin.com/in/marcel-n%C4%99dza-7b3954233/",
+  author: "Marcel Ćmachowski",
+  github: "https://github.com/mcmachowski/RecipeSearcher",
+  LinkedIn: "https://www.linkedin.com/in/marcel-%C4%87machowski-7b3954233/",
 };
 
 const Footer = () => {

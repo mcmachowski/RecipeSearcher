@@ -37,15 +37,6 @@ const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [userId, setUserId] = useState(false);
 
-  // These next 5 lines of code exist because the backend is deployed on my wallet-friendly server ($0),
-  //  so it automatically pings to the server while the server tries to wake up.
-  useEffect(() => {
-    fetch("https://recipesearcher-2nqq.onrender.com/recipes")
-      .then(res => console.log("Server ON!"))
-      .catch(err => console.log("Could not open server :/", err));
-  }, []);
-  
-
   const signIn = useCallback((uid, token, isAdmin, expirationDate) => {
     setToken(token);
     setIsAdmin(isAdmin);
