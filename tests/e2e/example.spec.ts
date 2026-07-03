@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('example test', async ({ page }) => {
+test('test example', async ({ page }) => {
   await page.goto('https://mcmachowski-recipe-searcher.netlify.app/');
   
   const recipeButton = page.getByRole('link', { name: 'Recipes', exact: true });
