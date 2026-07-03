@@ -8,6 +8,10 @@
 - [Live](#live)
 - [Installation](#installation)
 
+[![CI](https://github.com/mcmachowski/RecipeSearcher/actions/workflows/ci.yml/badge.svg)](https://github.com/mcmachowski/RecipeSearcher/actions/workflows/ci.yml)
+
+📊 [Najnowszy raport testów E2E (Playwright)](https://mcmachowski.github.io/RecipeSearcher/playwright-report/)
+
 ## Project
 
 RecipeSearcher is a full stack web application that I created as part of my engineering work. The goal of the application was to provide a tool that would allow users to search for recipes easily and conveniently, adapting to each user's preferences through a wide selection of filters. The app also reads the voice, making it easier to search for recipes, and the user gets more satisfaction from using the product. In addition to this main capability, the app also allows basic changes and editing of created user accounts, as well as the ability to add recipes to a favorites list, so recipes are always easily accessible. Also noteworthy is the administrator capability, which has access to all major functions, such as adding, editing and deleting recipes, as well as an overview and basic actions to manage other users who have created accounts in the app. The project uses Node.js, Express.js, MongoDB technologies on the server side and React.js on the client side.

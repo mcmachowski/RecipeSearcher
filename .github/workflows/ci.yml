@@ -103,3 +103,9 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: tests/playwright-report
           destination_dir: playwright-report
+
+      - name: Add report link to summary
+        if: always()
+        run: |
+          echo "### 🎭 Playwright Test Report" >> $GITHUB_STEP_SUMMARY
+          echo "[See test report](https://mcmachowski.github.io/RecipeSearcher/playwright-report/)" >> $GITHUB_STEP_SUMMARY
