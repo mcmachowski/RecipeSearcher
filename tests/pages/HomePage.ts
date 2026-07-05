@@ -11,6 +11,6 @@ export class HomePage {
   }
 
   async open() {
-    await this.page.goto("/");
+    await this.page.goto(`${process.env.BASE_URL!}/`);
   }
 }
