@@ -62,18 +62,18 @@ jobs:
         env:
           REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
 
-  wait-for-netlify:
-    name: Wait for Netlify Deploy
-    runs-on: ubuntu-latest
-    needs: [backend, frontend]
-    outputs:
-      url: ${{ steps.wait.outputs.url }}
-    steps:
-      - name: Wait for Netlify deployment
-        uses: jakepartusch/wait-for-netlify-action@v1.4
-        id: wait
-        with:
-          site_name: "https://mcmachowski-recipe-searcher.netlify.app"
+  # wait-for-netlify:
+  #   name: Wait for Netlify Deploy
+  #   runs-on: ubuntu-latest
+  #   needs: [backend, frontend]
+  #   outputs:
+  #     url: ${{ steps.wait.outputs.url }}
+  #   steps:
+  #     - name: Wait for Netlify deployment
+  #       uses: jakepartusch/wait-for-netlify-action@v1.4
+  #       id: wait
+  #       with:
+  #         site_name: "https://mcmachowski-recipe-searcher.netlify.app"
 
   tests:
     name: All tests in Playwright
