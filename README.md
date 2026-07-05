@@ -10,7 +10,7 @@
 
 [![CI](https://github.com/mcmachowski/RecipeSearcher/actions/workflows/ci.yml/badge.svg)](https://github.com/mcmachowski/RecipeSearcher/actions/workflows/ci.yml)
 
-📊 [Najnowszy raport testów E2E (Playwright)](https://mcmachowski.github.io/RecipeSearcher/playwright-report/)
+📊 [Newest tests report (Playwright)](https://mcmachowski.github.io/RecipeSearcher/playwright-report/)
 
 ## Project
 
