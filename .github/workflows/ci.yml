@@ -78,7 +78,6 @@ jobs:
   tests:
     name: All tests in Playwright
     runs-on: ubuntu-latest
-    needs: [wait-for-netlify]
     defaults:
       run:
         working-directory: tests
