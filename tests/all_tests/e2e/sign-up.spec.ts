@@ -11,7 +11,7 @@ test.describe("SignUp", () => {
     lastName: "TestLastName",
     email: `test${Date.now()}@test.com`,
     password: "testers",
-    imagePath: "../../assets/avatar.png",
+    imagePath: "tests/assets/avatar.png",
   };
 
   test("User can sign up", async ({ page }) => {

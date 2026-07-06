@@ -33,7 +33,8 @@ export class SignUpPage {
     await this.lastNameInput.fill(user.lastName);
 
     if (user.imagePath) {
-      await this.imageField.setInputFiles(user.imagePath);
+      const imagePath = path.resolve(user.imagePath);
+      await this.imageField.setInputFiles(imagePath);
     }
 
     await this.emailInput.fill(user.email);
