@@ -8,6 +8,7 @@ export class Navbar {
   readonly navRecipesButton: Locator;
   readonly navSignInButton: Locator;
   readonly navSignUpButton: Locator;
+  readonly navSignOutButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -17,6 +18,7 @@ export class Navbar {
     this.navRecipesButton = page.getByRole("link", { name: "Recipes", exact: true });
     this.navSignInButton = page.getByRole("link", { name: "Sign In", exact: true });
     this.navSignUpButton = page.getByRole("link", { name: "Sign Up", exact: true });
+    this.navSignOutButton = page.getByRole("listitem").filter({ hasText: "SignOut" });
   }
 
   async goToHomePageByLogo() {
