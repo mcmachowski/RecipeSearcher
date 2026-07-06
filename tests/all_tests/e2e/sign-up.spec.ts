@@ -13,10 +13,12 @@ test.describe("SignUp", () => {
   test("User can sign up", async ({ page }) => {
     const signUpPage = new SignUpPage(page);
 
-    await page.goto("/signup");
+    await page.goto("/sign-up");
 
     await signUpPage.fillForm(registerData);
     await signUpPage.submit();
-    await expect(page).toHaveURL(/dashboard/);
+    await expect(page).toHaveURL("/");
+
+    await expect(signUpPage.navbar.navSignOutButton).toBeVisible();
   });
 });
