@@ -14,7 +14,7 @@ test.describe("SignUp", () => {
     imagePath: "./assets/avatar.png",
   };
 
-  test.only("User can sign up", async ({ page }) => {
+  test("User can sign up", async ({ page }) => {
     const homePage = new HomePage(page);
     await homePage.open();
     await homePage.navbar.goToSignUpPage();
