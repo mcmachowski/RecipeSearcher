@@ -2,6 +2,8 @@ import { Page, Locator, expect } from "@playwright/test";
 import { Navbar } from "./Navbar";
 import { SignUpData } from "../all_tests/types/SignUpData";
 
+import path from "path";
+
 export class SignUpPage {
   readonly page: Page;
   readonly navbar: Navbar;
