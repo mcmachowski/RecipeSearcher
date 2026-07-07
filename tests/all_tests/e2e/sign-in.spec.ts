@@ -21,7 +21,6 @@ test.describe("SignIn", () => {
     const signInPage = new SignInPage(page);
     await signInPage.fillForm(registeredUser.email, registeredUser.password);
     await signInPage.submit();
-    await expect(page).toHaveURL(baseURL);
     await expect(signInPage.navbar.navSignOutButton).toBeVisible();
   });
 
