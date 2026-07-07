@@ -19,10 +19,6 @@ export class SignInPage {
     this.errorMessage = page.locator('[class*="error-message"]');
   }
 
-  async open() {
-    await this.page.goto(`${process.env.BASE_URL!}/sign-in`);
-  }
-
   async fillForm(email: string, password: string) {
     await this.emailInput.fill(email);
     await this.passwordInput.fill(password);

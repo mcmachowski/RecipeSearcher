@@ -15,8 +15,10 @@ test.describe("SignIn", () => {
   };
 
   test("user can sign in with valid credentials", async ({ page }) => {
+    const homePage = new HomePage(page);
+    await homePage.open();
+    await homePage.navbar.goToSignInPage();
     const signInPage = new SignInPage(page);
-    await signInPage.open();
     await signInPage.fillForm(registeredUser.email, registeredUser.password);
     await signInPage.submit();
     await expect(page).toHaveURL(baseURL);
@@ -24,8 +26,10 @@ test.describe("SignIn", () => {
   });
 
   test("user sees an error with a wrong password", async ({ page }) => {
+    const homePage = new HomePage(page);
+    await homePage.open();
+    await homePage.navbar.goToSignInPage();
     const signInPage = new SignInPage(page);
-    await signInPage.open();
     await signInPage.fillForm(registeredUser.email, "wrongPassword123");
     await signInPage.submit();
     await expect(signInPage.errorMessage).toBeVisible();
@@ -34,8 +38,10 @@ test.describe("SignIn", () => {
   });
 
   test("user sees an error with a non-existent email", async ({ page }) => {
+    const homePage = new HomePage(page);
+    await homePage.open();
+    await homePage.navbar.goToSignInPage();
     const signInPage = new SignInPage(page);
-    await signInPage.open();
     await signInPage.fillForm(`nobody@gmail.com`, "randomPassword");
     await signInPage.submit();
     await expect(signInPage.errorMessage).toBeVisible();

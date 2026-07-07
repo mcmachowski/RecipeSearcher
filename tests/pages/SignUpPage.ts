@@ -27,7 +27,7 @@ export class SignUpPage {
     this.confirmPasswordInput = page.getByRole("textbox", { name: "Confirm Password:" });
     this.signUpButton = page.getByRole("button", { name: "Sign Up" });
   }
-
+  
   async fillForm(user: SignUpData) {
     await this.firstNameInput.fill(user.firstName);
     await this.lastNameInput.fill(user.lastName);
