@@ -8,7 +8,7 @@
 - [Live](#live)
 - [Installation](#installation)
 
-- ## Tests
+## Tests
 
 - [![CI](https://github.com/mcmachowski/RecipeSearcher/actions/workflows/ci.yml/badge.svg)](https://github.com/mcmachowski/RecipeSearcher/actions/workflows/ci.yml)
 
