@@ -14,17 +14,6 @@ test.describe("SignIn", () => {
     password: "testers",
   };
 
-  test.beforeEach(async ({ page }) => {
-    const homePage = new HomePage(page);
-    await homePage.open();
-    await homePage.navbar.goToSignUpPage();
-    const signUpPage = new SignUpPage(page);
-    await signUpPage.fillForm(registeredUser);
-    await signUpPage.submit();
-    await signUpPage.navbar.navSignOutButton.click();
-    await expect(page).toHaveURL(baseURL);
-  });
-
   test("user can sign in with valid credentials", async ({ page }) => {
     const signInPage = new SignInPage(page);
     await signInPage.open();
