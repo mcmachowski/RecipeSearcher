@@ -27,13 +27,14 @@ export class SignUpPage {
     this.confirmPasswordInput = page.getByRole("textbox", { name: "Confirm Password:" });
     this.signUpButton = page.getByRole("button", { name: "Sign Up" });
   }
-
+  
   async fillForm(user: SignUpData) {
     await this.firstNameInput.fill(user.firstName);
     await this.lastNameInput.fill(user.lastName);
 
     if (user.imagePath) {
-      await this.imageField.setInputFiles(user.imagePath);
+      const imagePath = path.resolve(user.imagePath);
+      await this.imageField.setInputFiles(imagePath);
     }
 
     await this.emailInput.fill(user.email);

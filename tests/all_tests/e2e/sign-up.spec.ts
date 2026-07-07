@@ -11,7 +11,7 @@ test.describe("SignUp", () => {
     lastName: "TestLastName",
     email: `test${Date.now()}@test.com`,
     password: "testers",
-    imagePath: "../../assets/avatar.png",
+    imagePath: "./assets/avatar.png",
   };
 
   test("User can sign up", async ({ page }) => {
@@ -20,7 +20,6 @@ test.describe("SignUp", () => {
     await homePage.navbar.goToSignUpPage();
     const signUpPage = new SignUpPage(page);
     await expect(page).toHaveURL(`${baseURL}/sign-up`);
-
     await signUpPage.fillForm(registerData);
     await signUpPage.submit();
     await expect(page).toHaveURL(baseURL);
