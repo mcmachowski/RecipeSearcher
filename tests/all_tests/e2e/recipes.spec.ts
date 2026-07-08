@@ -10,9 +10,11 @@ test.describe("Recipes", () => {
     await homePage.navbar.goToRecipesPage();
     const recipesPage = new RecipesPage(page);
 
-    await expect(recipesPage.title).toBeVisible();
+    await expect(recipesPage.recipeNameHeadings.first()).toBeVisible({ timeout: 15000 });
+
     const totalCount = await recipesPage.getTotalRecipesCount();
     expect(totalCount).toBeGreaterThan(0);
+
     const visibleCount = await recipesPage.recipeNameHeadings.count();
     expect(visibleCount).toBeGreaterThan(0);
     expect(visibleCount).toBeLessThanOrEqual(15);
