@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { HomePage } from "../../pages/HomePage";
 
-test.describe("Navigation Desktop", () => {
+test.describe("Navigation", () => {
   const baseURL = process.env.BASE_URL!;
 
   test("user can navigate from Home to Search Page", async ({ page }) => {

@@ -5,8 +5,33 @@ export class RecipesPage {
   readonly page: Page;
   readonly navbar: Navbar;
 
+  readonly title: Locator;
+  readonly recipeNameHeadings: Locator;
+  readonly recipeDetailsLinks: Locator;
+  readonly nextPageButton: Locator;
+  readonly previousPageButton: Locator;
+
   constructor(page: Page) {
     this.page = page;
     this.navbar = new Navbar(page);
+    this.title = page.getByRole("heading", { name: "Recipes" });
+    this.recipeNameHeadings = page.getByRole("heading", { level: 3 });
+    this.recipeDetailsLinks = page.getByRole("link", { name: "See more details" });
+    this.nextPageButton = page.getByRole("link", { name: "Next", exact: true });
+    this.previousPageButton = page.getByRole("link", { name: "Previous", exact: true });
+  }
+
+  async open() {
+    await this.page.goto(`${process.env.BASE_URL!}/recipes`);
+  }
+
+  async getTotalRecipesCount(): Promise<number> {
+    const text = await this.title.textContent();
+    const match = text?.match(/\((\d+)\)/);
+    return match ? parseInt(match[1], 10) : 0;
+  }
+
+  async getFirstRecipeName(): Promise<string> {
+    return (await this.recipeNameHeadings.first().textContent()) ?? "";
   }
 }
