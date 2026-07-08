@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export default defineConfig({
-  globalSetup: require.resolve("./global-setup"),
+  globalSetup: require.resolve("./all_tests/e2e/global-setup"),
   testDir: "./all_tests",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
