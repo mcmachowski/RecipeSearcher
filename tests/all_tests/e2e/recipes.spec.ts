@@ -1,11 +1,14 @@
 import { test, expect } from "@playwright/test";
 import { RecipesPage } from "../../pages/RecipesPage";
 import { RecipeDetailPage } from "../../pages/RecipeDetailPage";
+import { HomePage } from "../../pages/HomePage";
 
 test.describe("Recipes", () => {
   test("user can see a list of recipes", async ({ page }) => {
+    const homePage = new HomePage(page);
+    await homePage.open();
+    await homePage.navbar.goToRecipesPage();
     const recipesPage = new RecipesPage(page);
-    await recipesPage.open();
 
     await expect(recipesPage.title).toBeVisible();
     const totalCount = await recipesPage.getTotalRecipesCount();
@@ -16,8 +19,10 @@ test.describe("Recipes", () => {
   });
 
   test("user can open a single recipe and see its details", async ({ page }) => {
+    const homePage = new HomePage(page);
+    await homePage.open();
+    await homePage.navbar.goToRecipesPage();
     const recipesPage = new RecipesPage(page);
-    await recipesPage.open();
 
     const expectedName = await recipesPage.getFirstRecipeName();
 
@@ -31,8 +36,10 @@ test.describe("Recipes", () => {
   });
 
   test("user can navigate between recipe pages", async ({ page }) => {
+    const homePage = new HomePage(page);
+    await homePage.open();
+    await homePage.navbar.goToRecipesPage();
     const recipesPage = new RecipesPage(page);
-    await recipesPage.open();
 
     const totalCount = await recipesPage.getTotalRecipesCount();
     const totalPages = Math.ceil(totalCount / 15);
