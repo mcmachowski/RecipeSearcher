@@ -14,7 +14,7 @@ export class RecipesPage {
   constructor(page: Page) {
     this.page = page;
     this.navbar = new Navbar(page);
-    this.title = page.getByRole("heading", { name: /Recipes\(\d+\)/ });
+    this.title = page.getByRole("heading", { name: "Recipes" });
     this.recipeNameHeadings = page.getByRole("heading", { level: 3 });
     this.recipeDetailsLinks = page.getByRole("link", { name: "See more details" });
     this.nextPageButton = page.getByRole("link", { name: "Next", exact: true });

@@ -6,6 +6,7 @@ test.describe("Recipes", () => {
   test("user can see a list of recipes", async ({ page }) => {
     const recipesPage = new RecipesPage(page);
     await recipesPage.open();
+
     await expect(recipesPage.title).toBeVisible();
     const totalCount = await recipesPage.getTotalRecipesCount();
     expect(totalCount).toBeGreaterThan(0);
