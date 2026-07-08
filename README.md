@@ -8,9 +8,11 @@
 - [Live](#live)
 - [Installation](#installation)
 
-[![CI](https://github.com/mcmachowski/RecipeSearcher/actions/workflows/ci.yml/badge.svg)](https://github.com/mcmachowski/RecipeSearcher/actions/workflows/ci.yml)
+## Tests
 
-📊 [Newest tests report (Playwright)](https://mcmachowski.github.io/RecipeSearcher/playwright-report/)
+- [![CI](https://github.com/mcmachowski/RecipeSearcher/actions/workflows/ci.yml/badge.svg)](https://github.com/mcmachowski/RecipeSearcher/actions/workflows/ci.yml)
+
+- [Newest tests report ---> (Playwright)](https://mcmachowski.github.io/RecipeSearcher/playwright-report/)
 
 ## Project
 
