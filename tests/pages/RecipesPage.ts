@@ -32,6 +32,12 @@ export class RecipesPage {
   }
 
   async getFirstRecipeName(): Promise<string> {
+    console.log();
     return (await this.recipeNameHeadings.first().textContent()) ?? "";
   }
+
+  async goToRecipeDetailPageByIndex(index: number): Promise<void> {
+    await this.recipeDetailsLinks.nth(index).click();
+  }
+
 }
