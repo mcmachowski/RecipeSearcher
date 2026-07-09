@@ -78,5 +78,25 @@ test.describe("Search", () => {
     expect(await searchedRecipesPage.recipeNameHeadings.first().textContent()).toContain("Pierogi");
   });
 
-  test("user can search for a recipe - by search input and filters", async ({ page }) => {});
+  test("user can search for a recipe - by search input and filters", async ({ page }) => {
+    const searchPage = new SearchPage(page);
+    await searchPage.chooseFilters(myFilters);
+    expect(await searchPage.areChoosenFiltersVisible(myFilters)).toBe(true);
+
+    await searchPage.searchForRecipe("Pierogi");
+    const searchedRecipesPage = new RecipesPage(page);
+
+    await expect(page).toHaveURL(`${baseURL}/searched-recipes`);
+    const totalCount = await searchedRecipesPage.getTotalRecipesCount();
+    expect(totalCount).toBeGreaterThan(0);
+
+    const myCategory = myFilters.category || myFilters2.category;
+
+    await searchedRecipesPage.goToRecipeDetailPageByIndex(0);
+
+    expect(await searchedRecipesPage.recipeNameHeadings.first().textContent()).toContain("Pierogi");
+
+    const recipeDetailPage = new RecipeDetailPage(page);
+    expect(await recipeDetailPage.getRecipeCategory()).toBe(myCategory);
+  });
 });
