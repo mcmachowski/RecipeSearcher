@@ -34,11 +34,12 @@ test.describe("Search", () => {
     expect(totalCount).toBeGreaterThan(0);
   });
 
-  test("user can see choosen filters in Filter Panel", async ({ page }) => {
+  test.only("user can see choosen filters in Filter Panel", async ({ page }) => {
     const searchPage = new SearchPage(page);
 
     await searchPage.chooseFilters(myFilters);
     expect(await searchPage.areChoosenFiltersVisible(myFilters)).toBe(true);
+
     await searchPage.chooseFilters(myFilters2);
     expect(await searchPage.areChoosenFiltersVisible({ ...myFilters, ...myFilters2 })).toBe(true);
   });

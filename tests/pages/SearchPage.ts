@@ -23,9 +23,12 @@ export class SearchPage {
   }
 
   private getFilterButton(name: string): Locator {
-    return this.page.getByRole("button", {
-      name: name,
-      exact: true,
+    return this.page.getByRole("button", { name, exact: true });
+  }
+
+  private getFilterItem(name: string): Locator {
+    return this.page.getByRole("listitem").filter({
+      hasText: new RegExp(`^${name}$`),
     });
   }
 
@@ -49,7 +52,7 @@ export class SearchPage {
 
   async areChoosenFiltersVisible(filters: Filters): Promise<boolean> {
     for (const value of Object.values(filters)) {
-      if (value && !(await this.getFilterButton(value).isVisible())) {
+      if (value && !(await this.getFilterItem(value).isVisible())) {
         return false;
       }
     }
