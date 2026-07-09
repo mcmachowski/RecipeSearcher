@@ -65,7 +65,18 @@ test.describe("Search", () => {
     expect(await recipeDetailPage.getRecipeCategory()).toBe(myCategory);
   });
 
-  test("user can search for a recipe - by search input", async ({ page }) => {});
+  test("user can search for a recipe - by search input", async ({ page }) => {
+    const searchPage = new SearchPage(page);
+    await searchPage.searchForRecipe("Pierogi");
+
+    const searchedRecipesPage = new RecipesPage(page);
+    await expect(page).toHaveURL(`${baseURL}/searched-recipes`);
+
+    const totalCount = await searchedRecipesPage.getTotalRecipesCount();
+    expect(totalCount).toBeGreaterThan(0);
+
+    expect(await searchedRecipesPage.recipeNameHeadings.first().textContent()).toContain("Pierogi");
+  });
 
   test("user can search for a recipe - by search input and filters", async ({ page }) => {});
 });
