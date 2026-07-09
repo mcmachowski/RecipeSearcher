@@ -5,7 +5,7 @@ export class RecipesPage {
   readonly page: Page;
   readonly navbar: Navbar;
 
-  readonly title: Locator;
+  readonly pageTitle: Locator;
   readonly recipeNameHeadings: Locator;
   readonly recipeDetailsLinks: Locator;
   readonly nextPageButton: Locator;
@@ -14,7 +14,7 @@ export class RecipesPage {
   constructor(page: Page) {
     this.page = page;
     this.navbar = new Navbar(page);
-    this.title = page.getByRole("heading", { name: "Recipes" });
+    this.pageTitle = page.getByRole("heading", { level: 2 });
     this.recipeNameHeadings = page.getByRole("heading", { level: 3 });
     this.recipeDetailsLinks = page.getByRole("link", { name: "See more details" });
     this.nextPageButton = page.getByRole("link", { name: "Next", exact: true });
@@ -26,7 +26,7 @@ export class RecipesPage {
   }
 
   async getTotalRecipesCount(): Promise<number> {
-    const text = await this.title.textContent();
+    const text = await this.pageTitle.textContent();
     const match = text?.match(/\((\d+)\)/);
     return match ? parseInt(match[1], 10) : 0;
   }
