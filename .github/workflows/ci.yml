@@ -72,6 +72,8 @@ jobs:
         working-directory: tests
     env:
       BASE_URL: ${{ vars.BASE_URL }}
+      ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+      ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -104,7 +106,7 @@ jobs:
           retention-days: 14
 
       - name: Deploy report to GitHub Pages
-        if: always()
+        if: always() 
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

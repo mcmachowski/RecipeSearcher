@@ -1,3 +1,4 @@
+declare const process: any;
 import { defineConfig, devices } from "@playwright/test";
 import dotenv from "dotenv";
 dotenv.config();
@@ -16,11 +17,21 @@ export default defineConfig({
   },
 
   projects: [
+    { name: "setup", testMatch: /auth\.setup\.ts/ },
     {
-      name: "chromium",
+      name: "admin-tests",
+      testMatch: /.*admin.*\.spec\.ts/,
       use: {
         ...devices["Desktop Chrome"],
+        storageState: "playwright/.auth/admin.json",
       },
+      dependencies: ["setup"],
+    },
+    {
+      name: "chromium",
+      testMatch: /.*\.spec\.ts/,
+      testIgnore: /.*admin.*\.spec\.ts/,
+      use: { ...devices["Desktop Chrome"] },
     },
   ],
 });
