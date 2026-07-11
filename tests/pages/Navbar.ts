@@ -28,8 +28,8 @@ export class Navbar {
 
     // logged user navigation buttons
     this.navProfileButton = page.getByRole("link", { name: "Profile", exact: true });
+    this.navFavoritesButton = page.getByRole("link", { name: "Favorites", exact: true });
     this.navSignOutButton = page.getByRole("listitem").filter({ hasText: "SignOut" });
-    this.navFavoritesButton = page.getByRole("listitem").filter({ hasText: "Favorites" });
 
     // admin user navigation buttons
     this.navAdminButton = page.getByRole("link", { name: "Admin", exact: true });
