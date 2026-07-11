@@ -32,7 +32,7 @@ export class ProfilePage {
     this.userIdValue = this.detailValueByLabel("User id:");
     this.nameValue = this.detailValueByLabel("Name:");
     this.surnameValue = this.detailValueByLabel("Surname:");
-    this.emailValue = this.detailValueByLabel("Email:");
+    this.emailValue = this.detailValueByLabel("Email");
     this.favoritesCountValue = this.detailValueByLabel("Favorites:");
 
     this.deleteConfirmModal = page.locator('[class*="modal-content"]');
