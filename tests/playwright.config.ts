@@ -17,7 +17,10 @@ export default defineConfig({
   },
 
   projects: [
-    { name: "setup", testMatch: /auth\.setup\.ts/ },
+    {
+      name: "setup",
+      testMatch: /auth\.setup\.ts/,
+    },
     {
       name: "admin-tests",
       testMatch: /.*admin.*\.spec\.ts/,
@@ -28,9 +31,18 @@ export default defineConfig({
       dependencies: ["setup"],
     },
     {
-      name: "chromium",
+      name: "user-tests",
+      testMatch: /.*user.*\.spec\.ts/,
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: "playwright/.auth/user.json",
+      },
+      dependencies: ["setup"],
+    },
+    {
+      name: "common-tests",
       testMatch: /.*\.spec\.ts/,
-      testIgnore: /.*admin.*\.spec\.ts/,
+      testIgnore: [/.*user.*\.spec\.ts/, /.*admin.*\.spec\.ts/],
       use: { ...devices["Desktop Chrome"] },
     },
   ],

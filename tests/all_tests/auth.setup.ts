@@ -3,7 +3,7 @@ import { SignInPage } from "../pages/SignInPage";
 import { HomePage } from "../pages/HomePage";
 
 const adminAuthFile = "playwright/.auth/admin.json";
-const normalUserAuthFile = "playwright/.auth/normalUser.json";
+const userAuthFile = "playwright/.auth/user.json";
 
 setup("authenticate as normal user", async ({ page }) => {
   const baseURL = process.env.BASE_URL!;
@@ -19,10 +19,11 @@ setup("authenticate as normal user", async ({ page }) => {
 
   await expect(page).not.toHaveURL(`${baseURL}/sign-in`);
   await expect(page).toHaveURL(baseURL);
-  await expect(signInPage.navbar.navSignOutButton).toBeVisible();
-  await expect(signInPage.navbar.profileButton).toBeVisible();
+  await expect(homePage.navbar.navSignOutButton).toBeVisible();
+  await expect(homePage.navbar.navProfileButton).toBeVisible();
+  await expect(homePage.navbar.navFavoritesButton).toBeVisible();
 
-  await page.context().storageState({ path: normalUserAuthFile });
+  await page.context().storageState({ path: userAuthFile });
 });
 
 setup("authenticate as admin", async ({ page }) => {
@@ -39,9 +40,10 @@ setup("authenticate as admin", async ({ page }) => {
 
   await expect(page).not.toHaveURL(`${baseURL}/sign-in`);
   await expect(page).toHaveURL(baseURL);
-  await expect(signInPage.navbar.navSignOutButton).toBeVisible();
-  await expect(signInPage.navbar.profileButton).toBeVisible();
-  await expect(signInPage.navbar.navAdminButton).toBeVisible();
+  await expect(homePage.navbar.navSignOutButton).toBeVisible();
+  await expect(homePage.navbar.navProfileButton).toBeVisible();
+  await expect(homePage.navbar.navFavoritesButton).toBeVisible();
+  await expect(homePage.navbar.navAdminButton).toBeVisible();
 
   await page.context().storageState({ path: adminAuthFile });
 });
