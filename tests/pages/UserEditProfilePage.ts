@@ -5,14 +5,14 @@ export class UserEditProfilePage {
   readonly usernameInput: Locator;
   readonly surnameInput: Locator;
   readonly emailInput: Locator;
-  readonly submitButton: Locator;
+  readonly saveChangesButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.usernameInput = page.getByRole("textbox", { name: "Name:", exact: true });
     this.surnameInput = page.getByRole("textbox", { name: "Surname:" });
     this.emailInput = page.getByRole("textbox", { name: "Email:" });
-    this.submitButton = page.getByRole("button", { name: "Submit" });
+    this.saveChangesButton = page.getByRole("button", { name: "Save Changes" });
   }
 
   async fillUsername(username: string) {

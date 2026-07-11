@@ -30,8 +30,11 @@ test.describe("Profile", () => {
     await profilePage.editProfileButton.click();
 
     const editProfilePage = new UserEditProfilePage(page);
+    await expect(editProfilePage.usernameInput).toBeVisible({ timeout: 15000 });
+    await expect(editProfilePage.surnameInput).toBeVisible({ timeout: 15000 });
+    await expect(editProfilePage.emailInput).toBeVisible({ timeout: 15000 });
     await editProfilePage.fillUsername(newName);
-    await editProfilePage.submitButton.click();
+    await editProfilePage.saveChangesButton.click();
 
     await expect(profilePage.nameValue).toHaveText(newName, { timeout: 15000 });
   });
@@ -45,8 +48,11 @@ test.describe("Profile", () => {
     await profilePage.editProfileButton.click();
 
     const editProfilePage = new UserEditProfilePage(page);
+    await expect(editProfilePage.usernameInput).toBeVisible({ timeout: 15000 });
+    await expect(editProfilePage.surnameInput).toBeVisible({ timeout: 15000 });
+    await expect(editProfilePage.emailInput).toBeVisible({ timeout: 15000 });
     await editProfilePage.fillSurname(newSurname);
-    await editProfilePage.submitButton.click();
+    await editProfilePage.saveChangesButton.click();
 
     await expect(profilePage.surnameValue).toHaveText(newSurname, { timeout: 15000 });
   });
@@ -60,8 +66,11 @@ test.describe("Profile", () => {
     await profilePage.editProfileButton.click();
 
     const editProfilePage = new UserEditProfilePage(page);
+    await expect(editProfilePage.usernameInput).toBeVisible({ timeout: 15000 });
+    await expect(editProfilePage.surnameInput).toBeVisible({ timeout: 15000 });
+    await expect(editProfilePage.emailInput).toBeVisible({ timeout: 15000 });
     await editProfilePage.fillEmail(newEmail);
-    await editProfilePage.submitButton.click();
+    await editProfilePage.saveChangesButton.click();
 
     await expect(profilePage.emailValue).toHaveText(newEmail, { timeout: 15000 });
   });
