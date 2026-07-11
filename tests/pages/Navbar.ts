@@ -27,7 +27,7 @@ export class Navbar {
     this.navSignUpButton = page.getByRole("link", { name: "Sign Up", exact: true });
 
     // logged user navigation buttons
-    this.navProfileButton = page.getByRole("listitem").filter({ hasText: "Profile" });
+    this.navProfileButton = page.getByRole("link", { name: "Profile", exact: true });
     this.navSignOutButton = page.getByRole("listitem").filter({ hasText: "SignOut" });
     this.navFavoritesButton = page.getByRole("listitem").filter({ hasText: "Favorites" });
 

@@ -20,8 +20,8 @@ setup("authenticate as normal user", async ({ page }) => {
   await expect(page).not.toHaveURL(`${baseURL}/sign-in`);
   await expect(page).toHaveURL(baseURL);
   await expect(homePage.navbar.navSignOutButton).toBeVisible();
-  await expect(homePage.navbar.navProfileButton).toBeVisible();
   await expect(homePage.navbar.navFavoritesButton).toBeVisible();
+  await expect(homePage.navbar.navProfileButton).toBeVisible();
 
   await page.context().storageState({ path: userAuthFile });
 });
@@ -41,8 +41,8 @@ setup("authenticate as admin", async ({ page }) => {
   await expect(page).not.toHaveURL(`${baseURL}/sign-in`);
   await expect(page).toHaveURL(baseURL);
   await expect(homePage.navbar.navSignOutButton).toBeVisible();
-  await expect(homePage.navbar.navProfileButton).toBeVisible();
   await expect(homePage.navbar.navFavoritesButton).toBeVisible();
+  await expect(homePage.navbar.navProfileButton).toBeVisible();
   await expect(homePage.navbar.navAdminButton).toBeVisible();
 
   await page.context().storageState({ path: adminAuthFile });
