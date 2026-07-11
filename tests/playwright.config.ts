@@ -42,7 +42,7 @@ export default defineConfig({
     {
       name: "common-tests",
       testMatch: /.*\.spec\.ts/,
-      testIgnore: [/.*user.*\.spec\.ts/, /.*admin.*\.spec\.ts/],
+      testIgnore: [/.*user.*\.spec\.ts/, /.*admin.*\.spec\.ts/, /.*delete.*\.spec\.ts/],
       use: { ...devices["Desktop Chrome"] },
     },
   ],

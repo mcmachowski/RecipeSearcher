@@ -2,7 +2,6 @@ import { test, expect } from "@playwright/test";
 import { HomePage } from "../../pages/HomePage";
 import { ProfilePage } from "../../pages/ProfilePage";
 import { UserEditProfilePage } from "../../pages/UserEditProfilePage";
-test.describe.configure({ mode: "serial" });
 
 test.describe("Profile", () => {
   const newName = `NewUsername-${Date.now()}`;

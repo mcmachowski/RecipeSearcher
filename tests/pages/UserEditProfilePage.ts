@@ -9,9 +9,9 @@ export class UserEditProfilePage {
 
   constructor(page: Page) {
     this.page = page;
-    this.usernameInput = page.getByLabel("Username");
-    this.surnameInput = page.getByLabel("Surname");
-    this.emailInput = page.getByLabel("Email");
+    this.usernameInput = page.getByRole("textbox", { name: "Name:", exact: true });
+    this.surnameInput = page.getByRole("textbox", { name: "Surname:" });
+    this.emailInput = page.getByRole("textbox", { name: "Email:" });
     this.submitButton = page.getByRole("button", { name: "Submit" });
   }
 
