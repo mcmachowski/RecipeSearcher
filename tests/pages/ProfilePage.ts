@@ -28,23 +28,20 @@ export class ProfilePage {
     this.editProfileButton = page.getByRole("link", { name: "Edit Profile" });
     this.deleteProfileButton = page.getByRole("button", { name: "Delete Profile" });
     this.avatarImage = page.locator('img[class*="user-avatar"]');
-
-    this.userIdValue = this.detailValueByLabel("User id:");
-    this.nameValue = this.detailValueByLabel("Name:");
-    this.surnameValue = this.detailValueByLabel("Surname:");
-    this.emailValue = this.detailValueByLabel("Email");
-    this.favoritesCountValue = this.detailValueByLabel("Favorites:");
+    
+    this.userIdValue = this.detailValueByLabel(/^User id:/);
+    this.nameValue = this.detailValueByLabel(/^Name:/);
+    this.surnameValue = this.detailValueByLabel(/^Surname:/);
+    this.emailValue = this.detailValueByLabel(/^Email/);
+    this.favoritesCountValue = this.detailValueByLabel(/^Favorites:/);
 
     this.deleteConfirmModal = page.locator('[class*="modal-content"]');
     this.deleteConfirmButton = page.getByRole("button", { name: "Confirm" });
     this.deleteCancelButton = page.getByRole("button", { name: "Close" });
   }
 
-  private detailValueByLabel(labelText: string): Locator {
-    return this.page
-      .locator('[class*="user-detail"]')
-      .filter({ has: this.page.getByText(labelText, { exact: true }) })
-      .locator('[class*="user-description"]');
+  private detailValueByLabel(labelPattern: RegExp): Locator {
+    return this.page.locator('[class*="user-detail"]').filter({ hasText: labelPattern }).locator('[class*="user-description"]');
   }
 
   async clickDeleteProfile() {
