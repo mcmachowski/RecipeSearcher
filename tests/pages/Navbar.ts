@@ -2,7 +2,6 @@ import { Page, Locator, expect } from "@playwright/test";
 
 export class Navbar {
   readonly page: Page;
-  readonly navAdminButton: Locator;
   readonly navHomeButton: Locator;
   readonly navLogoButton: Locator;
   readonly navSearchButton: Locator;
@@ -11,16 +10,27 @@ export class Navbar {
   readonly navSignUpButton: Locator;
   readonly navSignOutButton: Locator;
 
+  // logged user locators
+  readonly profileButton: Locator;
+
+  // admin locators
+  readonly navAdminButton: Locator;
+
   constructor(page: Page) {
     this.page = page;
-    this.navAdminButton = page.getByRole("link", { name: "Admin", exact: true });
     this.navHomeButton = page.getByRole("link", { name: "Home", exact: true });
     this.navLogoButton = page.getByRole("link", { name: "RecipeSearcher", exact: true });
     this.navSearchButton = page.getByRole("link", { name: "Search", exact: true });
     this.navRecipesButton = page.getByRole("link", { name: "Recipes", exact: true });
     this.navSignInButton = page.getByRole("link", { name: "Sign In", exact: true });
     this.navSignUpButton = page.getByRole("link", { name: "Sign Up", exact: true });
+
+    // logged user navigation buttons
+    this.profileButton = page.getByRole("listitem").filter({ hasText: "Profile" });
     this.navSignOutButton = page.getByRole("listitem").filter({ hasText: "SignOut" });
+
+    // admin user navigation buttons
+    this.navAdminButton = page.getByRole("link", { name: "Admin", exact: true });
   }
 
   async goToAdminPage() {

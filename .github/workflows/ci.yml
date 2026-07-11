@@ -74,6 +74,8 @@ jobs:
       BASE_URL: ${{ vars.BASE_URL }}
       ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
       ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+      NORMAL_USER_EMAIL: ${{ secrets.NORMAL_USER_EMAIL }}
+      NORMAL_USER_PASSWORD: ${{ secrets.NORMAL_USER_PASSWORD }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
