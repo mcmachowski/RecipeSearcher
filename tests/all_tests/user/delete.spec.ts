@@ -1,9 +1,12 @@
 import { test, expect } from "@playwright/test";
-import { SignUpPage } from "../../pages/SignUpPage";
 import { HomePage } from "../../pages/HomePage";
+import { ProfilePage } from "../../pages/ProfilePage";
+import { UserEditProfilePage } from "../../pages/UserEditProfilePage";
 import { SignUpData } from "../types/SignUpData";
+import { SignUpPage } from "../../pages/SignUpPage";
+test.describe.configure({ mode: "serial" });
 
-test.describe("SignUp", () => {
+test.describe("Profile", () => {
   const baseURL = process.env.BASE_URL!;
 
   const registerData: SignUpData = {
@@ -14,7 +17,7 @@ test.describe("SignUp", () => {
     imagePath: "./assets/avatar.png",
   };
 
-  test("User can sign up", async ({ page }) => {
+  test("user can create account, go to profile details and delete an account", async ({ page }) => {
     const homePage = new HomePage(page);
     await homePage.open();
     await homePage.navbar.goToSignUpPage();
@@ -23,7 +26,13 @@ test.describe("SignUp", () => {
     await signUpPage.fillForm(registerData);
     await signUpPage.submit();
     await expect(page).toHaveURL(baseURL);
-
     await expect(homePage.navbar.navSignOutButton).toBeVisible();
+    await homePage.navbar.goToProfilePage();
+
+    const profilePage = new ProfilePage(page);
+    await profilePage.clickDeleteProfile();
+    await profilePage.confirmDelete();
+    await expect(page).toHaveURL(baseURL);
+    await expect(homePage.navbar.navSignInButton).toBeVisible();
   });
 });
