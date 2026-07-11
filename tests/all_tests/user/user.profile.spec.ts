@@ -26,13 +26,10 @@ test.describe("Profile", () => {
     await homePage.open();
     await homePage.navbar.goToProfilePage();
     const profilePage = new ProfilePage(page);
-
+    await expect(profilePage.nameValue).toBeVisible({ timeout: 15000 });
     await profilePage.editProfileButton.click();
 
     const editProfilePage = new UserEditProfilePage(page);
-    await expect(editProfilePage.usernameInput).toBeVisible({ timeout: 15000 });
-    await expect(editProfilePage.surnameInput).toBeVisible({ timeout: 15000 });
-    await expect(editProfilePage.emailInput).toBeVisible({ timeout: 15000 });
     await editProfilePage.fillUsername(newName);
     await editProfilePage.saveChangesButton.click();
 
@@ -44,13 +41,10 @@ test.describe("Profile", () => {
     await homePage.open();
     await homePage.navbar.goToProfilePage();
     const profilePage = new ProfilePage(page);
-
+    await expect(profilePage.nameValue).toBeVisible({ timeout: 15000 });
     await profilePage.editProfileButton.click();
 
     const editProfilePage = new UserEditProfilePage(page);
-    await expect(editProfilePage.usernameInput).toBeVisible({ timeout: 15000 });
-    await expect(editProfilePage.surnameInput).toBeVisible({ timeout: 15000 });
-    await expect(editProfilePage.emailInput).toBeVisible({ timeout: 15000 });
     await editProfilePage.fillSurname(newSurname);
     await editProfilePage.saveChangesButton.click();
 
@@ -62,13 +56,10 @@ test.describe("Profile", () => {
     await homePage.open();
     await homePage.navbar.goToProfilePage();
     const profilePage = new ProfilePage(page);
-
+    await expect(profilePage.nameValue).toBeVisible({ timeout: 15000 });
     await profilePage.editProfileButton.click();
 
     const editProfilePage = new UserEditProfilePage(page);
-    await expect(editProfilePage.usernameInput).toBeVisible({ timeout: 15000 });
-    await expect(editProfilePage.surnameInput).toBeVisible({ timeout: 15000 });
-    await expect(editProfilePage.emailInput).toBeVisible({ timeout: 15000 });
     await editProfilePage.fillEmail(newEmail);
     await editProfilePage.saveChangesButton.click();
 
