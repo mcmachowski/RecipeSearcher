@@ -29,7 +29,7 @@ test.describe("Favorites", () => {
       await expect(recipeDetailPage.removeFromFavButton).toBeVisible();
     }
 
-    await recipeDetailPage.navbar.toToFavoritesPage();
+    await recipeDetailPage.navbar.goToFavoritesPage();
 
     await expect(page).toHaveURL(/\/favorites\/[a-zA-Z0-9]+$/);
     await expect(recipeDetailPage.recipeTitle).toBeVisible();
