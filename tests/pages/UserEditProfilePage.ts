@@ -14,9 +14,9 @@ export class UserEditProfilePage {
     this.page = page;
     this.navbar = new Navbar(page);
 
-    this.nameInput = page.getByRole("textbox", { name: "Name:" });
-    this.surnameInput = page.getByRole("textbox", { name: "Surname:" });
-    this.emailInput = page.getByRole("textbox", { name: "Email:" });
+    this.nameInput = page.getByRole("textbox", { name: "Name:", exact: true });
+    this.surnameInput = page.getByRole("textbox", { name: "Surname:", exact: true });
+    this.emailInput = page.getByRole("textbox", { name: "Email:", exact: true });
     this.saveChangesButton = page.getByRole("button", { name: "Save Changes" });
   }
 
