@@ -36,4 +36,32 @@ test.describe("Favorites", () => {
     await expect(recipeDetailPage.recipeTitle).toBeVisible();
     await expect(recipeDetailPage.recipeTitle).toHaveText(recipeTitle);
   });
+
+  test("user can delete recipes from favorites and check to see if they've been removed", async ({ page }) => {
+    const homePage = new HomePage(page);
+    await homePage.open();
+    await homePage.navbar.goToRecipesPage();
+    const recipesPage = new RecipesPage(page);
+    await recipesPage.goToRecipeDetailPageByIndex(0);
+    const recipeDetailPage = new RecipeDetailPage(page);
+    recipeTitle = (await recipeDetailPage.recipeTitle.textContent()) as string;
+
+    if (await recipeDetailPage.removeFromFavButton.isVisible()) {
+      addedToFav = true;
+    } else if (await recipeDetailPage.addToFavButton.isVisible()) {
+      addedToFav = false;
+    }
+
+    if (addedToFav) {
+      await recipeDetailPage.removeFromFavButton.click();
+      await expect(recipeDetailPage.addToFavButton).toBeVisible();
+    }
+
+    await recipeDetailPage.navbar.goToFavoritesPage();
+
+    await expect(page).toHaveURL(/\/favorites\/[a-zA-Z0-9]+$/);
+
+    await expect(recipesPage.pageTitle).toBeVisible();
+    await expect(recipesPage.pageTitle).toHaveText("No recipes found.");
+  });
 });
