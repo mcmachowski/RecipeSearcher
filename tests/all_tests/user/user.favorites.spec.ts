@@ -15,8 +15,8 @@ test.describe("Favorites", () => {
     await homePage.navbar.goToRecipesPage();
     const recipesPage = new RecipesPage(page);
     await recipesPage.goToRecipeDetailPageByIndex(0);
-    recipeTitle = await recipesPage.getFirstRecipeName();
     const recipeDetailPage = new RecipeDetailPage(page);
+    recipeTitle = (await recipeDetailPage.recipeTitle.textContent()) as string;
 
     if (await recipeDetailPage.removeFromFavButton.isVisible()) {
       addedToFav = true;
