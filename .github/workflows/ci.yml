@@ -27,14 +27,6 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-
-      # - name: Run tests
-      #   run: npm test
-      #   env:
-      #     DB_USER: ${{ secrets.DB_USER }}
-      #     DB_PASS: ${{ secrets.DB_PASS }}
-      #     DB_NAME: ${{ secrets.DB_NAME }}
-
   frontend:
     name: Frontend install dependencies
     runs-on: ubuntu-latest
@@ -55,9 +47,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # - name: Run tests
-      #   run: npm test -- --watchAll=false
-
       - name: Build production bundle
         run: npm run build
         env:
@@ -76,6 +65,8 @@ jobs:
       ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
       NORMAL_USER_EMAIL: ${{ secrets.NORMAL_USER_EMAIL }}
       NORMAL_USER_PASSWORD: ${{ secrets.NORMAL_USER_PASSWORD }}
+      EDIT_PROFILE_USER_EMAIL: ${{ secrets.EDIT_PROFILE_USER_EMAIL }}
+      EDIT_PROFILE_USER_PASSWORD: ${{ secrets.EDIT_PROFILE_USER_PASSWORD }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
