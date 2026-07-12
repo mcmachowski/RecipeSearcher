@@ -40,9 +40,18 @@ export default defineConfig({
       dependencies: ["setup"],
     },
     {
+      name: "user-edit-profile-tests",
+      testMatch: /.*edit\.profile.*\.spec\.ts/,
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: "playwright/.auth/edit.json",
+      },
+      dependencies: ["setup"],
+    },
+    {
       name: "common-tests",
       testMatch: /.*\.spec\.ts/,
-      testIgnore: [/.*user.*\.spec\.ts/, /.*admin.*\.spec\.ts/, /.*user\.profile.*\.spec\.ts/],
+      testIgnore: [/.*user.*\.spec\.ts/, /.*admin.*\.spec\.ts/, /.*edit\.profile.*\.spec\.ts/],
       use: { ...devices["Desktop Chrome"] },
     },
   ],

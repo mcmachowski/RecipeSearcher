@@ -7,10 +7,18 @@ test.describe.configure({ mode: "serial" });
 
 test.describe("Profile", () => {
   const user = {
-    name: "Test User",
-    surname: "Test Surname",
-    email: "test.user@example.com",
+    name: "",
+    surname: "",
+    password: "",
+    email: "",
   };
+
+  test.beforeAll("set up user data", async ({ page }) => {
+    user.name = "TestUser";
+    user.surname = "TestSurname";
+    user.password = "testers";
+    user.email = "test.user@example.com";
+  });
 
   test("user can go to their profile page and see their data", async ({ page }) => {
     const homePage = new HomePage(page);
@@ -82,5 +90,12 @@ test.describe("Profile", () => {
     await expect(profilePage.emailValue).toHaveText(newEmail);
 
     user.email = newEmail;
+  });
+
+  test.afterAll("reset user data", async ({ page }) => {
+    user.name = "TestUser";
+    user.surname = "TestSurname";
+    user.password = "testers";
+    user.email = "test.user@example.com";
   });
 });
