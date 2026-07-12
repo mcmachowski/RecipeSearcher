@@ -3,22 +3,16 @@ import { HomePage } from "../../pages/HomePage";
 import { ProfilePage } from "../../pages/ProfilePage";
 import { UserEditProfilePage } from "../../pages/UserEditProfilePage";
 
-test.describe.configure({ mode: "serial" });
-
 test.describe("Profile", () => {
-  const user = {
-    name: "",
-    surname: "",
-    password: "",
-    email: "",
-  };
+  test.describe.configure({ mode: "serial" });
 
-  test.beforeAll("set up user data", async ({ page }) => {
-    user.name = "TestUser";
-    user.surname = "TestSurname";
-    user.password = "testers";
-    user.email = "test.user@example.com";
-  });
+  const initialUser = {
+    name: "TestUser",
+    surname: "TestSurname",
+    password: process.env.EDIT_PROFILE_USER_PASSWORD!,
+    email: process.env.EDIT_PROFILE_USER_EMAIL!,
+  };
+  const user = { ...initialUser };
 
   test("user can go to their profile page and see their data", async ({ page }) => {
     const homePage = new HomePage(page);
@@ -92,10 +86,26 @@ test.describe("Profile", () => {
     user.email = newEmail;
   });
 
-  test.afterAll("reset user data", async ({ page }) => {
-    user.name = "TestUser";
-    user.surname = "TestSurname";
-    user.password = "testers";
-    user.email = "test.user@example.com";
+  test.afterAll(async ({ browser }) => {
+    const page = await browser.newPage({
+      storageState: "playwright/.auth/edit.json",
+    });
+
+    const homePage = new HomePage(page);
+    await homePage.open();
+    await homePage.navbar.goToProfilePage();
+
+    const profilePage = new ProfilePage(page);
+    await profilePage.editProfileButton.click();
+
+    const editProfilePage = new UserEditProfilePage(page);
+
+    await editProfilePage.fillUsername(initialUser.name);
+    await editProfilePage.fillSurname(initialUser.surname);
+    await editProfilePage.fillEmail(initialUser.email);
+
+    await editProfilePage.saveChangesButton.click();
+
+    await page.close();
   });
 });
