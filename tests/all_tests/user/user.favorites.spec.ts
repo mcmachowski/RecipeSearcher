@@ -32,6 +32,8 @@ test.describe("Favorites", () => {
     await recipeDetailPage.navbar.goToFavoritesPage();
 
     await expect(page).toHaveURL(/\/favorites\/[a-zA-Z0-9]+$/);
+    await recipesPage.goToRecipeDetailPageByIndex(0);
     await expect(recipeDetailPage.recipeTitle).toBeVisible();
+    await expect(recipeDetailPage.recipeTitle).toHaveText(recipeTitle);
   });
 });
