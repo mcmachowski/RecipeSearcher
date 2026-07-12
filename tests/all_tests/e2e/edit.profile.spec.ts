@@ -19,7 +19,7 @@ test.describe("Edit profile", () => {
   };
 
   test.beforeAll(async ({ browser }) => {
-    const page = await browser.newPage();
+    const page = await browser.newPage({ storageState: undefined });
 
     const homePage = new HomePage(page);
     await homePage.open();
