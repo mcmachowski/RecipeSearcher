@@ -10,7 +10,7 @@ test.describe("SignIn", () => {
   const registeredUser: SignUpData = {
     firstName: "username",
     lastName: "lastname",
-    email: "tester@gmail.com",
+    email: "mytestaccount@gmail.com",
     password: "testers",
   };
 
