@@ -11,6 +11,7 @@ test.describe("Favorites", () => {
 
   test("user can add recipes to favorites and check to see if they've been added", async ({ page }) => {
     const homePage = new HomePage(page);
+    await homePage.open();
     await homePage.navbar.goToRecipesPage();
     const recipesPage = new RecipesPage(page);
     await recipesPage.goToRecipeDetailPageByIndex(0);
