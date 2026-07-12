@@ -33,7 +33,7 @@ setup("authenticate as edit profile user", async ({ page }) => {
   await homePage.open();
 
   await homePage.navbar.goToSignInPage();
-  await expect(page).not.toHaveURL(`${baseURL}/sign-in`);
+  await expect(page).toHaveURL(`${baseURL}/sign-in`);
 
   const signInPage = new SignInPage(page);
   await signInPage.fillForm(process.env.EDIT_PROFILE_USER_EMAIL!, process.env.EDIT_PROFILE_USER_PASSWORD!);
