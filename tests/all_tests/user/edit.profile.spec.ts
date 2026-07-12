@@ -7,8 +7,8 @@ test.describe("Profile", () => {
   test.describe.configure({ mode: "serial" });
 
   const initialUser = {
-    name: "TestUser",
-    surname: "TestSurname",
+    name: "username",
+    surname: "lastname",
     password: process.env.EDIT_PROFILE_USER_PASSWORD!,
     email: process.env.EDIT_PROFILE_USER_EMAIL!,
   };
