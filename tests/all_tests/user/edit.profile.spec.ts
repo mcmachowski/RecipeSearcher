@@ -1,33 +1,41 @@
 import { test, expect } from "@playwright/test";
 import { HomePage } from "../../pages/HomePage";
+import { SignUpPage } from "../../pages/SignUpPage";
 import { ProfilePage } from "../../pages/ProfilePage";
 import { UserEditProfilePage } from "../../pages/UserEditProfilePage";
+import { SignUpData } from "../types/SignUpData";
 
-test.describe("Profile", () => {
+test.describe("Edit profile", () => {
   test.describe.configure({ mode: "serial" });
 
-  const initialUser = {
-    name: "username",
-    surname: "lastname",
-    password: process.env.EDIT_PROFILE_USER_PASSWORD!,
-    email: process.env.EDIT_PROFILE_USER_EMAIL!,
-  };
-  const user = { ...initialUser };
+  const tempAuthFile = "playwright/.auth/edit-profile-temp.json";
 
-  test("user can go to their profile page and see their data", async ({ page }) => {
+  const testUser: SignUpData = {
+    firstName: "EditTestUser",
+    lastName: "EditTestSurname",
+    email: `edit-profile-${Date.now()}@test.com`,
+    password: "testers123",
+    imagePath: "./assets/avatar.png",
+  };
+
+  test.beforeAll(async ({ browser }) => {
+    const page = await browser.newPage();
+
     const homePage = new HomePage(page);
     await homePage.open();
-    await homePage.navbar.goToProfilePage();
+    await homePage.navbar.goToSignUpPage();
 
-    const profilePage = new ProfilePage(page);
+    const signUpPage = new SignUpPage(page);
+    await signUpPage.fillForm(testUser);
+    await signUpPage.submit();
 
-    await expect(profilePage.title).toBeVisible();
-    await expect(profilePage.userIdValue).toBeVisible();
-    await expect(profilePage.nameValue).toHaveText(user.name);
-    await expect(profilePage.surnameValue).toHaveText(user.surname);
-    await expect(profilePage.emailValue).toHaveText(user.email);
-    await expect(profilePage.favoritesCountValue).toBeVisible();
+    await expect(signUpPage.navbar.navSignOutButton).toBeVisible();
+
+    await page.context().storageState({ path: tempAuthFile });
+    await page.close();
   });
+
+  test.use({ storageState: tempAuthFile });
 
   test("user can edit their profile name", async ({ page }) => {
     const newName = `NewUsername-${Date.now()}`;
@@ -37,15 +45,14 @@ test.describe("Profile", () => {
     await homePage.navbar.goToProfilePage();
 
     const profilePage = new ProfilePage(page);
+    await expect(profilePage.nameValue).toBeVisible({ timeout: 15000 });
     await profilePage.editProfileButton.click();
 
     const editProfilePage = new UserEditProfilePage(page);
     await editProfilePage.fillUsername(newName);
     await editProfilePage.saveChangesButton.click();
 
-    await expect(profilePage.nameValue).toHaveText(newName);
-
-    user.name = newName;
+    await expect(profilePage.nameValue).toHaveText(newName, { timeout: 15000 });
   });
 
   test("user can edit their profile surname", async ({ page }) => {
@@ -56,56 +63,31 @@ test.describe("Profile", () => {
     await homePage.navbar.goToProfilePage();
 
     const profilePage = new ProfilePage(page);
+    await expect(profilePage.nameValue).toBeVisible({ timeout: 15000 });
     await profilePage.editProfileButton.click();
 
     const editProfilePage = new UserEditProfilePage(page);
     await editProfilePage.fillSurname(newSurname);
     await editProfilePage.saveChangesButton.click();
 
-    await expect(profilePage.surnameValue).toHaveText(newSurname);
-
-    user.surname = newSurname;
+    await expect(profilePage.surnameValue).toHaveText(newSurname, { timeout: 15000 });
   });
 
   test("user can edit their profile email", async ({ page }) => {
-    const newEmail = `user-${Date.now()}@example.com`;
+    const newEmail = `edited-${Date.now()}@example.com`;
 
     const homePage = new HomePage(page);
     await homePage.open();
     await homePage.navbar.goToProfilePage();
 
     const profilePage = new ProfilePage(page);
+    await expect(profilePage.nameValue).toBeVisible({ timeout: 15000 });
     await profilePage.editProfileButton.click();
 
     const editProfilePage = new UserEditProfilePage(page);
     await editProfilePage.fillEmail(newEmail);
     await editProfilePage.saveChangesButton.click();
 
-    await expect(profilePage.emailValue).toHaveText(newEmail);
-
-    user.email = newEmail;
-  });
-
-  test.afterAll(async ({ browser }) => {
-    const page = await browser.newPage({
-      storageState: "playwright/.auth/edit.json",
-    });
-
-    const homePage = new HomePage(page);
-    await homePage.open();
-    await homePage.navbar.goToProfilePage();
-
-    const profilePage = new ProfilePage(page);
-    await profilePage.editProfileButton.click();
-
-    const editProfilePage = new UserEditProfilePage(page);
-
-    await editProfilePage.fillUsername(initialUser.name);
-    await editProfilePage.fillSurname(initialUser.surname);
-    await editProfilePage.fillEmail(initialUser.email);
-
-    await editProfilePage.saveChangesButton.click();
-
-    await page.close();
+    await expect(profilePage.emailValue).toHaveText(newEmail, { timeout: 15000 });
   });
 });

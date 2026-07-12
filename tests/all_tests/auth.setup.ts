@@ -27,29 +27,6 @@ setup("authenticate as normal user", async ({ page }) => {
   await page.context().storageState({ path: userAuthFile });
 });
 
-setup("authenticate as edit profile user", async ({ page }) => {
-  const baseURL = process.env.BASE_URL!;
-  const homePage = new HomePage(page);
-  await homePage.open();
-
-  await homePage.navbar.goToSignInPage();
-  await expect(page).toHaveURL(`${baseURL}/sign-in`);
-
-  const signInPage = new SignInPage(page);
-  await signInPage.fillForm(process.env.EDIT_PROFILE_USER_EMAIL!, process.env.EDIT_PROFILE_USER_PASSWORD!);
-  await signInPage.submit();
-
-  await expect(page).not.toHaveURL(`${baseURL}/sign-in`);
-  await expect(page).toHaveURL(baseURL);
-  await expect(homePage.navbar.navSignOutButton).toBeVisible();
-  await expect(homePage.navbar.navFavoritesButton).toBeVisible();
-  await expect(homePage.navbar.navProfileButton).toBeVisible();
-
-  await page.context().storageState({
-    path: editAuthFile,
-  });
-});
-
 setup("authenticate as admin", async ({ page }) => {
   const baseURL = process.env.BASE_URL!;
   const homePage = new HomePage(page);
