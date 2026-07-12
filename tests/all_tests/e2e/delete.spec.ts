@@ -1,12 +1,11 @@
 import { test, expect } from "@playwright/test";
 import { HomePage } from "../../pages/HomePage";
 import { ProfilePage } from "../../pages/ProfilePage";
-import { UserEditProfilePage } from "../../pages/UserEditProfilePage";
 import { SignUpData } from "../types/SignUpData";
 import { SignUpPage } from "../../pages/SignUpPage";
-test.describe.configure({ mode: "serial" });
 
-test.describe("Profile", () => {
+test.describe("Normal User", () => {
+  test.describe.configure({ mode: "serial" });
   const baseURL = process.env.BASE_URL!;
 
   const registerData: SignUpData = {

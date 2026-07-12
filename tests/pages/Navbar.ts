@@ -66,4 +66,8 @@ export class Navbar {
   async goToProfilePage() {
     await this.navProfileButton.click();
   }
+
+  async toToFavoritesPage() {
+    await this.navProfileButton.click();
+  }
 }

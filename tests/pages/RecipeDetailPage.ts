@@ -9,10 +9,16 @@ export class RecipeDetailPage {
   readonly ingredientsHeading: Locator;
   readonly instructionsHeading: Locator;
   readonly recipeCategory: Locator;
+  readonly recipeName: Locator;
+  readonly addToFavButton: Locator;
+  readonly removeFromFavButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.navbar = new Navbar(page);
+    this.recipeName = page.getByRole("heading", { level: 1 });
+    this.addToFavButton = page.getByRole("button", { name: "Add to Favorites" });
+    this.removeFromFavButton = page.getByRole("button", { name: "Remove from Favorites" });
 
     this.recipeTitle = page.getByRole("heading", { level: 1 });
     this.ingredientsHeading = page.getByRole("heading", {
