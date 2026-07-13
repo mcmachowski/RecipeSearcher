@@ -38,6 +38,7 @@ test.describe("Admin", () => {
     });
 
     await test.step("admin can see some users", async () => {
+      await expect(adminUsersListPage.userItems.first()).toBeVisible();
       const usersCount = await adminUsersListPage.getUsersCount();
       expect(usersCount).toBeGreaterThan(0);
       for (let i = 0; i < usersCount; i++) {
