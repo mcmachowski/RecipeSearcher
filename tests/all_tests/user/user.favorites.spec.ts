@@ -1,7 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { HomePage } from "../../pages/HomePage";
 import { RecipesPage } from "../../pages/RecipesPage";
-import { format } from "node:url";
 import { RecipeDetailPage } from "../../pages/RecipeDetailPage";
 test.describe.configure({ mode: "serial" });
 
