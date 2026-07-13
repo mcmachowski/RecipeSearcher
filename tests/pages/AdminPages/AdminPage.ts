@@ -1,5 +1,5 @@
 import { Page, Locator } from "@playwright/test";
-import { Navbar } from "./Navbar";
+import { Navbar } from "../Navbar";
 
 export class AdminPage {
   readonly page: Page;
