@@ -36,7 +36,7 @@ export class AdminUsersListPage {
   }
 
   async getUsersCount(): Promise<number> {
-    return this.userItems.count();
+    return await this.userItems.count();
   }
 
   async getUser(index: number) {
