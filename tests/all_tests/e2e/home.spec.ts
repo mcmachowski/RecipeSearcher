@@ -2,8 +2,6 @@ import { test, expect } from "@playwright/test";
 import { HomePage } from "../../pages/HomePage";
 
 test.describe("Home", () => {
-  const baseURL = process.env.BASE_URL!;
-
   test("user can see all titles and texts on the Home Page", async ({ page }) => {
     const homePage = new HomePage(page);
     await homePage.open();
