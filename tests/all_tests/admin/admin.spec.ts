@@ -29,7 +29,7 @@ test.describe("Admin", () => {
       await expect(adminPage.adminTitle).toHaveText("Admin Panel");
     });
 
-    await adminPage.showRecipesButton.click();
+    await adminPage.showUsersButton.click();
     const adminUsersListPage = new AdminUsersListPage(page);
 
     await test.step("admin can see users heading", async () => {
