@@ -29,9 +29,9 @@ export class AdminAddRecipePage {
     this.recipeTimeInput = page.getByRole("spinbutton", { name: "Time (minutes)" });
     this.recipeCategoryInput = page.getByRole("textbox", { name: "Category:" });
     this.recipeCuisineInput = page.getByRole("textbox", { name: "Cuisine:" });
-    this.recipeDifficultyInput = page.getByRole("textbox", { name: "Difficulty:" });
-    this.recipeSeasonalityInput = page.getByRole("textbox", { name: "Seasonality:" });
-    this.recipeSpecialDietInput = page.getByRole("textbox", { name: "SpecialDiet:" });
+    this.recipeDifficultyInput = page.getByRole("textbox", { name: "Difficulty" });
+    this.recipeSeasonalityInput = page.getByRole("textbox", { name: "Seasonality" });
+    this.recipeSpecialDietInput = page.getByRole("textbox", { name: "SpecialDiet" });
     this.addRecipeButton = page.getByRole("button", { name: "Add Recipe:" });
   }
 
