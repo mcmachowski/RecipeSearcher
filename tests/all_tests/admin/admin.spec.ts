@@ -2,17 +2,21 @@ import { test, expect } from "@playwright/test";
 import { HomePage } from "../../pages/HomePage";
 import { AdminPage } from "../../pages/AdminPages/AdminPage";
 import { AdminUsersListPage } from "../../pages/AdminPages/AdminUsersListPage";
+import { AdminAddRecipePage } from "../../pages/AdminPages/AdminAddRecipePage";
+import { RecipeData } from "../types/RecipeData";
+import { RecipesPage } from "../../pages/RecipesPage";
+import { RecipeDetailPage } from "../../pages/RecipeDetailPage";
+
+const baseURL = process.env.BASE_URL!;
+
+test.beforeEach(async ({ page }) => {
+  const homePage = new HomePage(page);
+  await homePage.open();
+  await homePage.navbar.goToAdminPage();
+  await expect(page).toHaveURL(`${baseURL}/admin`);
+});
 
 test.describe("Admin", () => {
-  const baseURL = process.env.BASE_URL!;
-
-  test.beforeEach(async ({ page }) => {
-    const homePage = new HomePage(page);
-    await homePage.open();
-    await homePage.navbar.goToAdminPage();
-    await expect(page).toHaveURL(`${baseURL}/admin`);
-  });
-
   test("admin can see admin panel", async ({ page }) => {
     const adminPage = new AdminPage(page);
     await expect(adminPage.adminTitle).toBeVisible();
@@ -50,5 +54,41 @@ test.describe("Admin", () => {
         expect(["User", "Admin"]).toContain(user.accountType);
       }
     });
+  });
+
+  test.describe("Recipe management", () => {
+    test.describe.configure({ mode: "serial" });
+    const exampleRecipe: RecipeData = {
+      name: "exampleRecipeName",
+      ingredients: "test1",
+      instructions: "Test this recipe.",
+      imagePath: "./assets/avatar.png",
+      time: 10,
+      category: "Dinner",
+      cuisine: "Polish",
+      difficulty: "Easy",
+      seasonality: "All Seasons",
+      specialDiet: "None",
+    };
+
+    test("admin can add recipe and see it in recipes list", async ({ page }) => {
+      const adminPage = new AdminPage(page);
+      await expect(adminPage.addNewRecipeButton).toBeVisible();
+      await adminPage.addNewRecipeButton.click();
+      const adminAddRecipePage = new AdminAddRecipePage(page);
+      await expect(page).toHaveURL(`${baseURL}/admin/recipes/add-recipe`);
+
+      await adminAddRecipePage.fillAddRecipeForm(exampleRecipe);
+      await adminAddRecipePage.addRecipeButton.click();
+      await expect(page).toHaveURL(`${baseURL}/admin/recipes`);
+
+      const recipesPage = new RecipesPage(page);
+      await recipesPage.openRecipeByName(exampleRecipe.name);
+
+      const recipeDetailsPage = new RecipeDetailPage(page);
+      await expect(recipeDetailsPage.recipeTitle).toHaveText(exampleRecipe.name);
+    });
+
+    test("admin can delete recipe", async ({ page }) => {});
   });
 });

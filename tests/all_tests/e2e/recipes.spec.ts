@@ -50,7 +50,7 @@ test.describe("Recipes", () => {
 
     const firstPageFirstRecipe = await recipesPage.getFirstRecipeName();
 
-    await recipesPage.nextPageButton.click();
+    await recipesPage.recipesNavigationNextPage.click();
     const secondPageFirstRecipe = await recipesPage.getFirstRecipeName();
     expect(secondPageFirstRecipe).not.toBe(firstPageFirstRecipe);
 
