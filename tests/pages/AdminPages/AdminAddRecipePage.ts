@@ -32,7 +32,7 @@ export class AdminAddRecipePage {
     this.recipeDifficultyInput = page.getByRole("textbox", { name: "Difficulty" });
     this.recipeSeasonalityInput = page.getByRole("textbox", { name: "Seasonality" });
     this.recipeSpecialDietInput = page.getByRole("textbox", { name: "SpecialDiet" });
-    this.addRecipeButton = page.getByRole("button", { name: "Add Recipe:" });
+    this.addRecipeButton = page.getByRole("button", { name: "Add Recipe" });
   }
 
   async fillAddRecipeForm(recipe: RecipeData) {
