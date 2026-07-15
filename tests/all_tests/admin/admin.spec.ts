@@ -77,6 +77,7 @@ test.describe("Admin", () => {
       await adminPage.addNewRecipeButton.click();
       const adminAddRecipePage = new AdminAddRecipePage(page);
       await expect(page).toHaveURL(`${baseURL}/admin/recipes/add-recipe`);
+      await expect(adminAddRecipePage.pageTitle).toBeVisible();
 
       await adminAddRecipePage.fillAddRecipeForm(exampleRecipe);
       await adminAddRecipePage.addRecipeButton.click();
@@ -89,6 +90,7 @@ test.describe("Admin", () => {
       await expect(recipeDetailsPage.recipeTitle).toHaveText(exampleRecipe.name);
     });
 
+    test("admin can edit recipe details", async ({ page }) => {});
     test("admin can delete recipe", async ({ page }) => {});
   });
 });

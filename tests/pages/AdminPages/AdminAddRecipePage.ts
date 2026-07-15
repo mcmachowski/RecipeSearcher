@@ -7,6 +7,7 @@ import path from "path";
 export class AdminAddRecipePage {
   readonly page: Page;
   readonly navbar: Navbar;
+  readonly pageTitle: Locator;
   readonly recipeNameInput: Locator;
   readonly recipeIngredientsInput: Locator;
   readonly recipeInstructionsInput: Locator;
@@ -22,6 +23,7 @@ export class AdminAddRecipePage {
   constructor(page: Page) {
     this.page = page;
     this.navbar = new Navbar(page);
+    this.pageTitle = page.getByRole("heading", { level: 2 });
     this.recipeNameInput = page.getByRole("textbox", { name: "Name:" });
     this.recipeIngredientsInput = page.getByRole("textbox", { name: "Ingredients:" });
     this.recipeInstructionsInput = page.getByRole("textbox", { name: "Instructions:" });
