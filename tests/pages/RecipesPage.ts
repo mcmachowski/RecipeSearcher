@@ -19,7 +19,7 @@ export class RecipesPage {
     this.recipeNameHeadings = page.getByRole("heading", { level: 3 });
     this.recipeDetailsLinks = page.getByRole("link", { name: "See more details" });
     this.previousPageButton = page.getByRole("link", { name: "Previous", exact: true });
-    this.recipeItem = page.locator("div > div");
+    this.recipeItem = page.locator('[class^="RecipeItem_recipe__"]');
     this.previousPageButton = page.getByRole("link", { name: "Previous", exact: true });
     this.recipesNavigationNextPage = page.getByRole("button", { name: "Next page" });
   }
