@@ -19,7 +19,7 @@ export class RecipeDetailPage {
     this.navbar = new Navbar(page);
     this.recipeName = page.getByRole("heading", { level: 1 });
     this.addToFavButton = page.getByRole("button", { name: "Add to Favorites" });
-    this.editRecipeButton = page.getByRole("button", { name: "Edit Recipe" });
+    this.editRecipeButton = page.getByRole("link", { name: "Edit Recipe" });
     this.removeFromFavButton = page.getByRole("button", { name: "Remove from Favorites" });
 
     this.recipeTitle = page.getByRole("heading", { level: 1 });
