@@ -6,6 +6,7 @@ import { AdminAddRecipePage } from "../../pages/AdminPages/AdminAddRecipePage";
 import { RecipeData } from "../types/RecipeData";
 import { RecipesPage } from "../../pages/RecipesPage";
 import { RecipeDetailPage } from "../../pages/RecipeDetailPage";
+import { EditRecipPage } from "../../pages/EditRecipePage";
 
 const baseURL = process.env.BASE_URL!;
 
@@ -71,6 +72,8 @@ test.describe("Admin", () => {
       specialDiet: "None",
     };
 
+    const changedRecipeName: string = "changedRecipeName";
+
     test("admin can add recipe and see it in recipes list", async ({ page }) => {
       const adminPage = new AdminPage(page);
       await expect(adminPage.addNewRecipeButton).toBeVisible();
@@ -90,7 +93,26 @@ test.describe("Admin", () => {
       await expect(recipeDetailsPage.recipeTitle).toHaveText(exampleRecipe.name);
     });
 
-    test("admin can edit recipe details", async ({ page }) => {});
+    test("admin can edit recipe details", async ({ page }) => {
+      const adminPage = new AdminPage(page);
+      await expect(adminPage.showRecipesButton).toBeVisible();
+      await adminPage.showRecipesButton.click();
+      await expect(page).toHaveURL(`${baseURL}/admin/recipes`);
+      const recipesPage = new RecipesPage(page);
+      await recipesPage.openRecipeByName(exampleRecipe.name);
+      const recipeDetailsPage = new RecipeDetailPage(page);
+      await expect(recipeDetailsPage.editRecipeButton).toBeVisible();
+      await recipeDetailsPage.editRecipeButton.click();
+      const editRecipePage = new EditRecipPage(page);
+
+      await expect(editRecipePage.recipeNameInput).toBeVisible();
+      await expect(editRecipePage.saveChangesButton).toBeVisible();
+      await editRecipePage.recipeNameInput.fill(changedRecipeName);
+      await editRecipePage.saveChangesButton.click();
+
+      await expect(recipeDetailsPage.recipeName).toHaveText(changedRecipeName);
+    });
+
     test("admin can delete recipe", async ({ page }) => {});
   });
 });
