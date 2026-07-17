@@ -67,4 +67,13 @@ export class RecipesPage {
 
     throw new Error(`Recipe "${recipeName}" was not found.`);
   }
+
+  async recipeExists(recipeName: string): Promise<boolean> {
+    try {
+      await this.openRecipeByName(recipeName);
+      return true;
+    } catch {
+      return false;
+    }
+  }
 }
