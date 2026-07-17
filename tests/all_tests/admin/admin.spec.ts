@@ -113,6 +113,22 @@ test.describe("Admin", () => {
       await expect(recipeDetailsPage.recipeName).toHaveText(changedRecipeName);
     });
 
-    test("admin can delete recipe", async ({ page }) => {});
+    test("admin can delete recipe", async ({ page }) => {
+      const adminPage = new AdminPage(page);
+      await expect(adminPage.showRecipesButton).toBeVisible();
+      await adminPage.showRecipesButton.click();
+      await expect(page).toHaveURL(`${baseURL}/admin/recipes`);
+      const recipesPage = new RecipesPage(page);
+      await recipesPage.openRecipeByName(changedRecipeName);
+      const recipeDetailsPage = new RecipeDetailPage(page);
+      await expect(recipeDetailsPage.removeRecipe).toBeVisible();
+      await recipeDetailsPage.removeRecipe.click();
+      await expect(recipeDetailsPage.removeConfirmButton).toBeVisible();
+      await recipeDetailsPage.removeConfirmButton.click();
+      await expect(page).toHaveURL(`${baseURL}`);
+      const homePage = new HomePage(page);
+      await homePage.navbar.goToRecipesPage();
+      expect(await recipesPage.recipeExists(changedRecipeName)).toBe(false);
+    });
   });
 });
