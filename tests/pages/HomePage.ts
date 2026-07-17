@@ -37,4 +37,22 @@ export class HomePage {
   async open() {
     await this.page.goto(`${process.env.BASE_URL!}`);
   }
+
+  async expectAllTextsToBeVisible() {
+    await expect(this.h1title).toBeVisible();
+    await expect(this.h2subtitle).toBeVisible();
+    await expect(this.homeParagraph).toBeVisible();
+    await expect(this.startButton).toBeVisible();
+    await expect(this.h3subtitle).toBeVisible();
+    await expect(this.h3normalText).toBeVisible();
+    await expect(this.h3_2nd_subtitle).toBeVisible();
+    await expect(this.h3_2nd_normalText).toBeVisible();
+    await expect(this.lastParagraph).toBeVisible();
+    await expect(this.joinNowButton).toBeVisible();
+  }
+
+  async expectAllImagesToBeVisible() {
+    await expect(this.image1).toBeVisible();
+    await expect(this.image2).toBeVisible();
+  }
 }
