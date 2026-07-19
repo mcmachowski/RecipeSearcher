@@ -3,7 +3,7 @@ import { HomePage } from "../../pages/HomePage";
 import { SignUpPage } from "../../pages/SignUpPage";
 import { SignInPage } from "../../pages/SignInPage";
 import { SignUpData } from "../types/SignUpData";
-import { registeredUser } from "../data/recipeUserDataForTest";
+import { registeredUser } from "../data/signInData";
 
 test.describe("SignIn", () => {
   const baseURL = process.env.BASE_URL!;

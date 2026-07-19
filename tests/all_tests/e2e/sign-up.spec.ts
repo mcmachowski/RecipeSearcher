@@ -2,17 +2,10 @@ import { test, expect } from "@playwright/test";
 import { SignUpPage } from "../../pages/SignUpPage";
 import { HomePage } from "../../pages/HomePage";
 import { SignUpData } from "../types/SignUpData";
+import { registerData } from "../data/signUpData";
 
 test.describe("SignUp", () => {
   const baseURL = process.env.BASE_URL!;
-
-  const registerData: SignUpData = {
-    firstName: "TestFirstName",
-    lastName: "TestLastName",
-    email: `test${Date.now()}@test.com`,
-    password: "testers",
-    imagePath: "./assets/avatar.png",
-  };
 
   test("User can sign up", async ({ page }) => {
     const homePage = new HomePage(page);
@@ -23,7 +16,6 @@ test.describe("SignUp", () => {
     await signUpPage.fillForm(registerData);
     await signUpPage.submit();
     await expect(page).toHaveURL(baseURL);
-
     await expect(homePage.navbar.navSignOutButton).toBeVisible();
   });
 });
