@@ -60,7 +60,7 @@ export class SearchPage {
   }
 
   async chooseAndExpectFiltersToBeVisible(filters: Filters) {
-    this.chooseFilters(filters);
+    await this.chooseFilters(filters);
     expect(await this.areChoosenFiltersVisible(filters)).toBe(true);
   }
 }
