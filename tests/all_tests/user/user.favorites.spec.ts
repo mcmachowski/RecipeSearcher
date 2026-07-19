@@ -8,28 +8,32 @@ test.describe("Favorites", () => {
   let addedToFav: boolean;
   let recipeTitle: string;
 
-  test("user can add recipes to favorites and check to see if they've been added", async ({ page }) => {
-    const homePage = new HomePage(page);
+  let homePage: HomePage;
+  let recipesPage: RecipesPage;
+  let recipeDetailPage: RecipeDetailPage;
+
+  test.beforeEach(async ({ page }) => {
+    homePage = new HomePage(page);
+    recipesPage = new RecipesPage(page);
+    recipeDetailPage = new RecipeDetailPage(page);
+
     await homePage.open();
     await homePage.navbar.goToRecipesPage();
-    const recipesPage = new RecipesPage(page);
     await recipesPage.goToRecipeDetailPageByIndex(0);
-    const recipeDetailPage = new RecipeDetailPage(page);
     recipeTitle = (await recipeDetailPage.recipeTitle.textContent()) as string;
+  });
 
+  test("user can add recipes to favorites and check to see if they've been added", async ({ page }) => {
     if (await recipeDetailPage.removeFromFavButton.isVisible()) {
       addedToFav = true;
     } else if (await recipeDetailPage.addToFavButton.isVisible()) {
       addedToFav = false;
     }
-
     if (!addedToFav) {
       await recipeDetailPage.addToFavButton.click();
       await expect(recipeDetailPage.removeFromFavButton).toBeVisible();
     }
-
     await recipeDetailPage.navbar.goToFavoritesPage();
-
     await expect(page).toHaveURL(/\/favorites\/[a-zA-Z0-9]+$/);
     await recipesPage.goToRecipeDetailPageByIndex(0);
     await expect(recipeDetailPage.recipeTitle).toBeVisible();
@@ -37,14 +41,6 @@ test.describe("Favorites", () => {
   });
 
   test("user can delete recipes from favorites and check to see if they've been removed", async ({ page }) => {
-    const homePage = new HomePage(page);
-    await homePage.open();
-    await homePage.navbar.goToRecipesPage();
-    const recipesPage = new RecipesPage(page);
-    await recipesPage.goToRecipeDetailPageByIndex(0);
-    const recipeDetailPage = new RecipeDetailPage(page);
-    recipeTitle = (await recipeDetailPage.recipeTitle.textContent()) as string;
-
     if (await recipeDetailPage.removeFromFavButton.isVisible()) {
       addedToFav = true;
     } else if (await recipeDetailPage.addToFavButton.isVisible()) {
@@ -55,11 +51,8 @@ test.describe("Favorites", () => {
       await recipeDetailPage.removeFromFavButton.click();
       await expect(recipeDetailPage.addToFavButton).toBeVisible();
     }
-
     await recipeDetailPage.navbar.goToFavoritesPage();
-
     await expect(page).toHaveURL(/\/favorites\/[a-zA-Z0-9]+$/);
-
     await expect(recipesPage.pageTitle).toBeVisible();
     await expect(recipesPage.pageTitle).toHaveText("No recipes found.");
   });
