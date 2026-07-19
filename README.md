@@ -1,53 +1,120 @@
 # RecipeSearcher
 
-![image](https://github.com/mnedza/RecipeSearcher/assets/71381963/21f2d11e-7369-42cf-a844-934dccade4b5)
+Aplikacja full-stack (React + Node.js/Express + MongoDB) do wyszukiwania przepisów kulinarnych z rozbudowanymi filtrami i wyszukiwaniem głosowym. Zawiera zarządzanie kontem użytkownika, listę ulubionych przepisów oraz panel administratora do zarządzania przepisami i użytkownikami.
 
-## Contents
+🔗 **Live demo:** https://mcmachowski-recipe-searcher.netlify.app/
 
-- [Project](#project)
-- [Live](#live)
-- [Installation](#installation)
+---
 
-## Tests
+## 🧪 Testowanie i automatyzacja
 
-- [![CI](https://github.com/mcmachowski/RecipeSearcher/actions/workflows/ci.yml/badge.svg)](https://github.com/mcmachowski/RecipeSearcher/actions/workflows/ci.yml)
+Ten projekt jest dla mnie przede wszystkim poligonem do budowania frameworka do automatyzacji testów — nie tylko pisania testów, ale też ich utrzymania, organizacji i integracji z CI/CD.
 
-- [Newest tests report ---> (Playwright)](https://mcmachowski.github.io/RecipeSearcher/playwright-report/)
+**Stack testowy:** Playwright + TypeScript
 
-## Project
+### Zakres pokrycia
 
-RecipeSearcher is a full stack web application that I created as part of my engineering work. The goal of the application was to provide a tool that would allow users to search for recipes easily and conveniently, adapting to each user's preferences through a wide selection of filters. The app also reads the voice, making it easier to search for recipes, and the user gets more satisfaction from using the product. In addition to this main capability, the app also allows basic changes and editing of created user accounts, as well as the ability to add recipes to a favorites list, so recipes are always easily accessible. Also noteworthy is the administrator capability, which has access to all major functions, such as adding, editing and deleting recipes, as well as an overview and basic actions to manage other users who have created accounts in the app. The project uses Node.js, Express.js, MongoDB technologies on the server side and React.js on the client side.
+| Obszar                | Plik                     | Co jest testowane                                                 |
+| --------------------- | ------------------------ | ----------------------------------------------------------------- |
+| Logowanie             | `sign-in.spec.ts`        | poprawne/niepoprawne logowanie, walidacje                         |
+| Rejestracja           | `sign-up.spec.ts`        | zakładanie nowego konta, walidacje formularza                     |
+| Strona główna         | `home.spec.ts`           | wyświetlanie treści, elementy layoutu                             |
+| Nawigacja             | `navigation.spec.ts`     | przechodzenie między widokami aplikacji                           |
+| Przepisy              | `recipes.spec.ts`        | listowanie i interakcje z przepisami                              |
+| Wyszukiwanie i filtry | `search.spec.ts`         | wyszukiwanie po frazie, kombinacje filtrów                        |
+| Edycja profilu        | `edit.profile.spec.ts`   | zmiana danych konta                                               |
+| Usuwanie danych       | `delete.spec.ts`         | usuwanie przepisu/konta                                           |
+| Panel admina          | `admin.spec.ts`          | dodawanie, edycja i usuwanie przepisów, zarządzanie użytkownikami |
+| Ulubione (user)       | `user.favorites.spec.ts` | dodawanie/usuwanie przepisów z ulubionych                         |
 
-## Live
+> 🔜 **W planach:** testy API (folder `all_tests/api` już przygotowany w strukturze, implementacja w toku).
 
-To see full project live, visit the [Recipe Searcher website](https://mcmachowski-recipe-searcher.netlify.app/).
+### CI/CD
 
-## Installation
+Testy są częścią pipeline'u GitHub Actions (`.github/workflows/ci.yml`), uruchamianego:
 
-1. Clone the repository to your device:
-   ```bash
-   git clone https://github.com/mnedza/RecipeSearcher.git
-   ```
-2. Install client
-   ```bash
-   cd frontend
-   npm install
-   ```
-3. Install Server
-   ```bash
-   cd backend
-   npm install
-   ```
-4. If you want to try you can make a new account or use one of existing:
+- przy każdym pushu i pull requeście do `main`,
+- ręcznie (`workflow_dispatch`),
+- **automatycznie co noc** (`cron`) — jako regularny regression check niezależny od aktywności w repo.
 
-```js
-normal account:
+Pipeline:
 
+1. instaluje zależności backendu,
+2. instaluje zależności frontendu i buduje paczkę produkcyjną,
+3. dopiero po tym odpala pełny zestaw testów Playwright,
+4. publikuje raport HTML z wynikami na GitHub Pages i linkuje go w podsumowaniu joba.
+
+📊 **Najnowszy raport z testów:** https://mcmachowski.github.io/RecipeSearcher/playwright-report/
+
+### Uruchamianie testów lokalnie
+
+```bash
+cd tests
+npm install
+npx playwright install --with-deps
+
+# wszystkie testy
+npx playwright test
+
+# tryb UI (podgląd krok po kroku)
+npx playwright test --ui
+
+# tylko jeden projekt
+npx playwright test --project=admin-tests
+```
+
+Wymagane zmienne środowiskowe (plik `.env` w `tests/`):
+
+```
+BASE_URL=
+ADMIN_EMAIL=
+ADMIN_PASSWORD=
+NORMAL_USER_EMAIL=
+NORMAL_USER_PASSWORD=
+EDIT_PROFILE_USER_EMAIL=
+EDIT_PROFILE_USER_PASSWORD=
+```
+
+---
+
+## 🛠️ Stack technologiczny aplikacji
+
+- **Frontend:** React.js
+- **Backend:** Node.js, Express.js
+- **Baza danych:** MongoDB (Mongoose)
+- **Testy:** Playwright, TypeScript
+- **CI/CD:** GitHub Actions
+
+## 🚀 Instalacja i uruchomienie
+
+1. Sklonuj repozytorium:
+
+```bash
+git clone https://github.com/mcmachowski/RecipeSearcher.git
+```
+
+2. Zainstaluj i uruchom frontend:
+
+```bash
+cd frontend
+npm install
+```
+
+3. Zainstaluj i uruchom backend:
+
+```bash
+cd backend
+npm install
+```
+
+4. Konta testowe do wypróbowania aplikacji:
+
+```
+Konto zwykłego użytkownika:
 email = user@gmail.com
 password = testers
 
-admin account:
-
+Konto administratora:
 email = admin@gmail.com
 password = testers
 ```
