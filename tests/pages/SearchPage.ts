@@ -1,4 +1,4 @@
-import { Page, Locator } from "@playwright/test";
+import { Page, Locator, expect } from "@playwright/test";
 import { Navbar } from "./Navbar";
 import { Filters } from "../all_tests/types/Filters";
 
@@ -39,7 +39,7 @@ export class SearchPage {
     await this.searchButton.click();
   }
 
-  async chooseFilters(filters: Filters) {
+  private async chooseFilters(filters: Filters) {
     await this.addFiltersButton.click();
 
     for (const filter of Object.values(filters)) {
@@ -50,12 +50,17 @@ export class SearchPage {
     await this.closeFiltersPanelButton.click();
   }
 
-  async areChoosenFiltersVisible(filters: Filters): Promise<boolean> {
+  private async areChoosenFiltersVisible(filters: Filters): Promise<boolean> {
     for (const value of Object.values(filters)) {
       if (value && !(await this.getFilterItem(value).isVisible())) {
         return false;
       }
     }
     return true;
+  }
+
+  async chooseAndExpectFiltersToBeVisible(filters: Filters) {
+    await this.chooseFilters(filters);
+    expect(await this.areChoosenFiltersVisible(filters)).toBe(true);
   }
 }
