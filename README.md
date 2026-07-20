@@ -44,8 +44,10 @@ Pipeline:
 3. dopiero po tym odpala pełny zestaw testów Playwright,
 4. publikuje raport HTML z wynikami na GitHub Pages i linkuje go w podsumowaniu joba.
 
-**Najnowszy Raport z Testów E2E:** https://mcmachowski.github.io/RecipeSearcher/playwright-report/e2e/
-**Najnowszy Raport z Testów API:** https://mcmachowski.github.io/RecipeSearcher/playwright-report/api/
+**Najnowszy Raport z Testów E2E:
+** https://mcmachowski.github.io/RecipeSearcher/playwright-report/e2e/
+**Najnowszy Raport z Testów API:
+** https://mcmachowski.github.io/RecipeSearcher/playwright-report/api/
 
 ### Uruchamianie testów lokalnie
 
