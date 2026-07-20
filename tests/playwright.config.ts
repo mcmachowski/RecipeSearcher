@@ -40,9 +40,16 @@ export default defineConfig({
       dependencies: ["setup"],
     },
     {
+      name: "api-tests",
+      testMatch: /.*\.api\.spec\.ts/,
+      use: {
+        baseURL: process.env.API_URL ?? process.env.BASE_URL,
+      },
+    },
+    {
       name: "common-tests",
       testMatch: /.*\.spec\.ts/,
-      testIgnore: [/.*user.*\.spec\.ts/, /.*admin.*\.spec\.ts/],
+      testIgnore: [/.*user.*\.spec\.ts/, /.*admin.*\.spec\.ts/, /.*\.api\.spec\.ts/],
       use: { ...devices["Desktop Chrome"] },
     },
   ],
