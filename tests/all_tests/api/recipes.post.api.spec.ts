@@ -4,7 +4,7 @@ import fs from "fs";
 
 // const URL = process.env.API_URL!;
 const URL = "https://recipesearcher-2nqq.onrender.com";
-const IMAGE_PATH = path.resolve(__dirname, "../../assets/pancakes.jpg");
+const IMAGE_PATH = path.resolve(__dirname, "../../assets/avatar.png");
 
 const newRecipeData = {
   name: "API Test Recipe - Pancakes",
@@ -55,7 +55,7 @@ test.describe("POST", async () => {
       multipart: {
         ...newRecipeData,
         image: {
-          name: "avatar.jpg",
+          name: "avatar.png",
           mimeType: "image/png",
           buffer: fs.readFileSync(IMAGE_PATH),
         },
