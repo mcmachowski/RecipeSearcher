@@ -2,7 +2,8 @@ import { test, expect, APIRequestContext } from "@playwright/test";
 import path from "path";
 import fs from "fs";
 
-const URL = process.env.API_URL!;
+// const URL = process.env.API_URL!;
+const URL = "https://recipesearcher-2nqq.onrender.com";
 const IMAGE_PATH = path.resolve(__dirname, "../../assets/pancakes.jpg");
 
 const newRecipeData = {
@@ -25,8 +26,10 @@ test.describe("POST", async () => {
     const loginContext = await playwright.request.newContext({ baseURL: URL });
     const signInResponse = await loginContext.post("/sign-in", {
       data: {
-        email: process.env.ADMIN_EMAIL,
-        password: process.env.ADMIN_PASSWORD,
+        // email: process.env.ADMIN_EMAIL,
+        // password: process.env.ADMIN_PASSWORD,
+        email: "admin@gmail.com",
+        password: "testers",
       },
     });
 
@@ -47,7 +50,7 @@ test.describe("POST", async () => {
     await adminContext?.dispose();
   });
 
-  test.only("admin should can add a new recipe", async ({ request }) => {
+  test("admin should can add a new recipe", async ({ request }) => {
     const response = await adminContext.post("/admin/recipes/add-recipe", {
       multipart: {
         ...newRecipeData,
@@ -79,7 +82,7 @@ test.describe("POST", async () => {
     createdRecipeId = body.recipe._id ?? body.recipe.id;
   });
 
-  test.only("newly created recipe is retrievable via GET /recipes/:id", async ({ request }) => {
+  test("newly created recipe is retrievable via GET /recipes/:id", async ({ request }) => {
     test.skip(!createdRecipeId, "Recipe was not created in the previous test");
 
     const response = await request.get(`${URL}/recipes/${createdRecipeId}`);
