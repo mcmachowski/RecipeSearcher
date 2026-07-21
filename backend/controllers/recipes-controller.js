@@ -59,7 +59,7 @@ exports.getRecipeById = async (req, res, next) => {
   }
 
   if (!recipe) {
-    const error = new HttpError("Could not find a recipe for the provided id.", 404);
+    const error = new HttpError("Something went wrong, could not find a recipe for the provided id.", 404);
     return next(error);
   }
   res.json({ recipe: recipe.toObject({ getters: true }) });
