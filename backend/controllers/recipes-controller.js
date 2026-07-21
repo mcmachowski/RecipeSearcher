@@ -54,7 +54,7 @@ exports.getRecipeById = async (req, res, next) => {
   try {
     recipe = await Recipe.findById(recipeId);
   } catch (err) {
-    const error = new HttpError("Something went wrong, could not find a recipe.", 400);
+    const error = new HttpError("Something went wrong, invalid recipe id provided.", 400);
     return next(error);
   }
 
