@@ -4,21 +4,9 @@ const User = require("../models/user-model");
 const Recipe = require("../models/recipe-model");
 
 exports.addRecipe = async (req, res, next) => {
-  const {
-    name,
-    ingredients,
-    instructions,
-    time,
-    category,
-    cuisine,
-    difficulty,
-    seasonality,
-    specialDiet,
-  } = req.body;
+  const { name, ingredients, instructions, time, category, cuisine, difficulty, seasonality, specialDiet } = req.body;
 
-  const parsedIngredients = Array.isArray(ingredients)
-    ? ingredients
-    : ingredients.split(",").map(item => item.trim());
+  const parsedIngredients = Array.isArray(ingredients) ? ingredients : ingredients.split(",").map((item) => item.trim());
 
   if (!req.file) {
     const error = new HttpError("Image file is missing.", 400);
@@ -41,10 +29,7 @@ exports.addRecipe = async (req, res, next) => {
   try {
     await createdRecipe.save();
   } catch (err) {
-    const error = new HttpError(
-      "Creating recipe failed, please try again.",
-      500
-    );
+    const error = new HttpError("Creating recipe failed, please try again.", 500);
     return next(error);
   }
 
@@ -56,10 +41,7 @@ exports.getRecipes = async (req, res, next) => {
   try {
     recipes = await Recipe.find();
   } catch (err) {
-    const error = new HttpError(
-      "Something went wrong, could not find recipes.",
-      500
-    );
+    const error = new HttpError("Something went wrong, could not find recipes.", 500);
     return next(error);
   }
 
@@ -72,18 +54,12 @@ exports.getRecipeById = async (req, res, next) => {
   try {
     recipe = await Recipe.findById(recipeId);
   } catch (err) {
-    const error = new HttpError(
-      "Something went wrong, could not find a recipe.",
-      500
-    );
+    const error = new HttpError("Something went wrong, could not find a recipe.", 400);
     return next(error);
   }
 
   if (!recipe) {
-    const error = new HttpError(
-      "Could not find a recipe for the provided id.",
-      500
-    );
+    const error = new HttpError("Could not find a recipe for the provided id.", 404);
     return next(error);
   }
   res.json({ recipe: recipe.toObject({ getters: true }) });
@@ -115,10 +91,7 @@ exports.removeRecipeById = async (req, res, next) => {
       return next(new HttpError("Could not find recipe for provided id.", 404));
     }
 
-    await User.updateMany(
-      { favorites: recipeId },
-      { $pull: { favorites: recipeId } }
-    );
+    await User.updateMany({ favorites: recipeId }, { $pull: { favorites: recipeId } });
 
     res.status(200).json({ message: "Deleted recipe." });
   } catch (err) {
@@ -143,10 +116,7 @@ exports.searchRecipes = async (req, res, next) => {
 
     res.json({ recipes });
   } catch (err) {
-    const error = new HttpError(
-      "Something went wrong, could not find recipes.",
-      500
-    );
+    const error = new HttpError("Something went wrong, could not find recipes.", 500);
     return next(error);
   }
 };
