@@ -1,11 +1,11 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("GET", async () => {
-  const URL = process.env.API_URL!;
-  const recipeId = "65b018190c74fee668e2b098"; // pierogi
-  const nonExistingId = "60000000000000000000000f";
-  const invalidId = "abc";
+const URL = process.env.API_URL!;
+const recipeId = "65b018190c74fee668e2b098"; // pierogi
+const nonExistingId = "60000000000000000000000f";
+const invalidId = "abc";
 
+test.describe("GET", async () => {
   test.describe("/recipes", async () => {
     test("should return all recipes", async ({ request }) => {
       const response = await request.get(`${URL}/recipes`);
@@ -54,28 +54,16 @@ test.describe("GET", async () => {
 
     test("should return 404 when does not exist", async ({ request }) => {
       const response = await request.get(`${URL}/recipes/${nonExistingId}`);
-      console.log(response.status());
       const body = await response.json();
-      console.log(body);
       expect(response.status()).toBe(404);
       expect(body.message).toBe("Something went wrong, could not find a recipe for the provided id.");
     });
 
     test("should return 400 when id is not valid", async ({ request }) => {
       const response = await request.get(`${URL}/recipes/${invalidId}`);
-      console.log(response.status());
       const body = await response.json();
-      console.log(body);
       expect(response.status()).toBe(400);
       expect(body.message).toBe("Something went wrong, invalid recipe id provided.");
     });
   });
-
-  test("POST - add recipe", async ({ request }) => {});
-
-  // POST method - negative cases
-  test("POST - add recipe without name", async ({ request }) => {});
-  test("POST - add recipe without ingredients", async ({ request }) => {});
-  test("POST - add recipe without instructions", async ({ request }) => {});
-  test("POST - add recipe without ", async ({ request }) => {});
 });
