@@ -2,8 +2,7 @@ import { test, expect, APIRequestContext } from "@playwright/test";
 import path from "path";
 import fs from "fs";
 
-// const URL = process.env.API_URL!;
-const URL = "https://recipesearcher-2nqq.onrender.com";
+const URL = process.env.API_URL!;
 const IMAGE_PATH = path.resolve(__dirname, "../../assets/avatar.png");
 
 const newRecipeData = {
@@ -90,6 +89,24 @@ test.describe("POST", async () => {
 
     const body = await response.json();
     expect(body.recipe.name).toBe(newRecipeData.name);
+  });
+
+  test("should return 401 when user is not authenticated", async ({ request }) => {
+    const response = await request.post(`${URL}/admin/recipes/add-recipe`, {
+      multipart: {
+        ...newRecipeData,
+        image: {
+          name: "avatar.png",
+          mimeType: "image/png",
+          buffer: fs.readFileSync(IMAGE_PATH),
+        },
+      },
+    });
+
+    expect(response.status()).toBe(401);
+
+    const body = await response.json();
+    expect(body.message).toBe("Authentication failed!");
   });
 
   // test("should not add recipe without name", async ({ request }) => {});
