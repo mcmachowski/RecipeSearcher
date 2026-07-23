@@ -92,6 +92,24 @@ test.describe("POST", async () => {
     expect(body.recipe.name).toBe(newRecipeData.name);
   });
 
+  test.only("should return 401 when user is not authenticated", async ({ request }) => {
+    const response = await request.post(`${URL}/admin/recipes/add-recipe`, {
+      multipart: {
+        ...newRecipeData,
+        image: {
+          name: "avatar.png",
+          mimeType: "image/png",
+          buffer: fs.readFileSync(IMAGE_PATH),
+        },
+      },
+    });
+
+    expect(response.status()).toBe(401);
+
+    const body = await response.json();
+    expect(body.message).toBe("Authentication failed!");
+  });
+
   // test("should not add recipe without name", async ({ request }) => {});
   // test("should not add recipe without ingredients", async ({ request }) => {});
   // test("should not add recipe without instructions", async ({ request }) => {});
