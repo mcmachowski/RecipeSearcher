@@ -109,6 +109,19 @@ test.describe("POST", async () => {
     expect(body.message).toBe("Authentication failed!");
   });
 
+  test.only("should return 400 when image is missing", async () => {
+    const response = await adminContext.post("/admin/recipes/add-recipe", {
+      multipart: {
+        ...newRecipeData,
+      },
+    });
+
+    expect(response.status()).toBe(400);
+
+    const body = await response.json();
+    expect(body.message).toBe("Image file is missing.");
+  });
+
   // test("should not add recipe without name", async ({ request }) => {});
   // test("should not add recipe without ingredients", async ({ request }) => {});
   // test("should not add recipe without instructions", async ({ request }) => {});
