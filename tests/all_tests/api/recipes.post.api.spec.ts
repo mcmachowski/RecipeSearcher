@@ -2,7 +2,8 @@ import { test, expect, APIRequestContext } from "@playwright/test";
 import path from "path";
 import fs from "fs";
 
-const URL = process.env.API_URL!;
+const URL = "https://recipesearcher-2nqq.onrender.com";
+// const URL = process.env.API_URL!;
 const IMAGE_PATH = path.resolve(__dirname, "../../assets/avatar.png");
 
 const newRecipeData = {
@@ -107,6 +108,19 @@ test.describe("POST", async () => {
 
     const body = await response.json();
     expect(body.message).toBe("Authentication failed!");
+  });
+
+  test.only("should return 400 when image is missing", async () => {
+    const response = await adminContext.post("/admin/recipes/add-recipe", {
+      multipart: {
+        ...newRecipeData,
+      },
+    });
+
+    expect(response.status()).toBe(400);
+
+    const body = await response.json();
+    expect(body.message).toBe("Image file is missing.");
   });
 
   // test("should not add recipe without name", async ({ request }) => {});
