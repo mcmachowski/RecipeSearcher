@@ -41,7 +41,7 @@ exports.getRecipes = async (req, res, next) => {
   try {
     recipes = await Recipe.find();
   } catch (err) {
-    const error = new HttpError("Something went wrong, could not find recipes.", 500);
+    const error = new HttpError("Something went wrong, could not find recipes.", 400);
     return next(error);
   }
 
