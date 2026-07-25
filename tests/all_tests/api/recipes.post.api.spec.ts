@@ -49,7 +49,7 @@ test.describe("POST", async () => {
     await adminContext?.dispose();
   });
 
-  test("admin should can add a new recipe", async ({ request }) => {
+  test("admin should can add a new recipe", async () => {
     const response = await adminContext.post("/admin/recipes/add-recipe", {
       multipart: {
         ...newRecipeData,
@@ -109,7 +109,7 @@ test.describe("POST", async () => {
     expect(body.message).toBe("Authentication failed!");
   });
 
-  test.only("should return 400 when image is missing", async () => {
+  test("should return 400 when image is missing", async () => {
     const response = await adminContext.post("/admin/recipes/add-recipe", {
       multipart: {
         ...newRecipeData,
@@ -122,7 +122,23 @@ test.describe("POST", async () => {
     expect(body.message).toBe("Image file is missing.");
   });
 
-  // test("should not add recipe without name", async ({ request }) => {});
-  // test("should not add recipe without ingredients", async ({ request }) => {});
-  // test("should not add recipe without instructions", async ({ request }) => {});
+  test("should return 400 when recipe name is missing", async () => {
+    const { name, ...recipeWithoutName } = newRecipeData;
+
+    const response = await adminContext.post("/admin/recipes/add-recipe", {
+      multipart: {
+        ...recipeWithoutName,
+        image: {
+          name: "avatar.png",
+          mimeType: "image/png",
+          buffer: fs.readFileSync(IMAGE_PATH),
+        },
+      },
+    });
+
+    expect(response.status()).toBe(400);
+
+    const body = await response.json();
+    expect(body.message).toBe("Something went wrong, could not find recipes.");
+  });
 });
