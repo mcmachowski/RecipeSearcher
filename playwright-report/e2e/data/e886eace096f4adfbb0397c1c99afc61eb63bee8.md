@@ -60,11 +60,11 @@ Received: true
   - generic [ref=e39]:
     - generic [ref=e40]:
       - heading "changedRecipeName" [level=1] [ref=e41]
-      - paragraph [ref=e42]: "Recipe Id: 6a62fd63b962998a3363025f"
+      - paragraph [ref=e42]: "Recipe Id: 6a63c43d53403bf95af424dc"
       - generic [ref=e43]:
         - button "Add to favorites" [ref=e45] [cursor=pointer]
         - link "Edit Recipe" [ref=e46] [cursor=pointer]:
-          - /url: /admin/edit-recipe/6a62fd63b962998a3363025f
+          - /url: /admin/edit-recipe/6a63c43d53403bf95af424dc
         - button "Remove Recipe" [ref=e47] [cursor=pointer]
     - generic [ref=e48]:
       - img "changedRecipeName" [ref=e50]
