@@ -49,7 +49,7 @@ test.describe("POST", async () => {
     await adminContext?.dispose();
   });
 
-  test("admin should can add a new recipe", async ({ request }) => {
+  test("admin should can add a new recipe", async () => {
     const response = await adminContext.post("/admin/recipes/add-recipe", {
       multipart: {
         ...newRecipeData,
