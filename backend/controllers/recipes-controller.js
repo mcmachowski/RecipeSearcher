@@ -29,7 +29,7 @@ exports.addRecipe = async (req, res, next) => {
   try {
     await createdRecipe.save();
   } catch (err) {
-    const error = new HttpError("Creating recipe failed, please try again.", 500);
+    const error = new HttpError("Creating recipe failed, please try again.", 400);
     return next(error);
   }
 
@@ -41,7 +41,7 @@ exports.getRecipes = async (req, res, next) => {
   try {
     recipes = await Recipe.find();
   } catch (err) {
-    const error = new HttpError("Something went wrong, could not find recipes.", 400);
+    const error = new HttpError("Something went wrong, could not find recipes.", 500);
     return next(error);
   }
 

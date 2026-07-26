@@ -136,9 +136,8 @@ test.describe("POST", async () => {
       },
     });
 
-    expect(response.status()).toBe(400);
-
     const body = await response.json();
     expect(body.message).toBe("Something went wrong, could not find recipes.");
+    expect(response.status()).toBe(400);
   });
 });
