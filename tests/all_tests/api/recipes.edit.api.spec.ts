@@ -7,7 +7,7 @@ const URL = process.env.API_URL!;
 const IMAGE_PATH = path.resolve(__dirname, "../../assets/avatar.png");
 
 const recipeToEdit = {
-  name: "API Test Recipe - Pancakes",
+  name: "Edit Test Recipe - Pancakes",
   ingredients: "flour, milk, eggs, sugar",
   instructions: "Mix all ingredients into a batter and fry on a hot pan until golden on both sides.",
   time: "20",
@@ -43,9 +43,7 @@ test.describe("PATCH", async () => {
   });
 
   test.afterAll(async () => {
-    if (recipeId && adminContext) {
-      await adminContext.delete(`/admin/recipes/${recipeId}`);
-    }
+    await adminContext?.dispose();
   });
 
   test.beforeEach(async () => {
@@ -80,8 +78,14 @@ test.describe("PATCH", async () => {
     recipeId = body.recipe._id ?? body.recipe.id;
   });
 
+  test.afterEach(async () => {
+    if (recipeId && adminContext) {
+      await adminContext.delete(`/admin/recipes/${recipeId}`);
+    }
+  });
+
   test("admin can edit existing recipe's name", async () => {
-    const response = adminContext.patch("/admin/recipes/add-recipe", {});
+    const response = adminContext.patch(`/admin/recipes/edit-recipe/${recipeId}`, {});
   });
 
   test("admin can edit existing recipe's ingredients", async () => {});
