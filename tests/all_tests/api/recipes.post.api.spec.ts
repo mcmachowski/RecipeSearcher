@@ -25,10 +25,8 @@ test.describe("POST", async () => {
     const loginContext = await playwright.request.newContext({ baseURL: URL });
     const signInResponse = await loginContext.post("/sign-in", {
       data: {
-        // email: process.env.ADMIN_EMAIL,
-        // password: process.env.ADMIN_PASSWORD,
-        email: "admin@gmail.com",
-        password: "testers",
+        email: process.env.ADMIN_EMAIL,
+        password: process.env.ADMIN_PASSWORD,
       },
     });
 
