@@ -18,6 +18,7 @@ const newRecipeData = {
 };
 
 test.describe("POST", async () => {
+  test.describe.configure({ mode: "serial" });
   let adminContext: APIRequestContext;
   let createdRecipeId: string;
 
