@@ -4,6 +4,7 @@ import path from "path";
 import fs from "fs";
 
 const URL = process.env.API_URL!;
+
 const IMAGE_PATH = path.resolve(__dirname, "../../assets/avatar.png");
 
 const recipeToEdit = {
@@ -85,7 +86,32 @@ test.describe("PATCH", async () => {
   });
 
   test("admin can edit existing recipe's name", async () => {
-    const response = adminContext.patch(`/admin/recipes/edit-recipe/${recipeId}`, {});
+    const newName = "MyEditedRecipeName";
+
+    const response = await adminContext.patch(`/admin/edit-recipe/${recipeId}`, {
+      multipart: {
+        name: newName,
+      },
+    });
+
+    await test.step("PATCH returns status 200", async () => {
+      expect(response.status()).toBe(200);
+    });
+
+    const patchBody = await response.json();
+
+    await test.step("PATCH response contains updated recipe", async () => {
+      expect(patchBody.recipe.name).toBe(newName);
+    });
+
+    const getResponse = await adminContext.get(`/recipes/${recipeId}`);
+    expect(getResponse.status()).toBe(200);
+
+    const getBody = await getResponse.json();
+
+    await test.step("GET returns updated recipe name", async () => {
+      expect(getBody.recipe.name).toBe(newName);
+    });
   });
 
   test("admin can edit existing recipe's ingredients", async () => {});
